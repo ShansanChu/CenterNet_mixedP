@@ -1,0 +1,2619 @@
+Keep resolution testing.
+training chunk_sizes: [32]
+The output will be saved to  /data/shan/CenterNet/src/lib/../../exp/multi_pose/hg_3x
+heads {'hm': 1, 'wh': 2, 'hps': 34, 'reg': 2, 'hm_hp': 17, 'hp_offset': 2}
+Namespace(K=100, aggr_weight=0.0, agnostic_ex=False, arch='hourglass', aug_ddd=0.5, aug_rot=0, batch_size=32, cat_spec_wh=False, center_thresh=0.1, chunk_sizes=[32], data_dir='/data/shan/CenterNet/src/lib/../../data', dataset='coco_hp', debug=0, debug_dir='/data/shan/CenterNet/src/lib/../../exp/multi_pose/hg_3x/debug', debugger_theme='white', demo='', dense_hp=False, dense_wh=False, dep_weight=1, dim_weight=1, down_ratio=4, eval_oracle_dep=False, eval_oracle_hm=False, eval_oracle_hmhp=False, eval_oracle_hp_offset=False, eval_oracle_kps=False, eval_oracle_offset=False, eval_oracle_wh=False, exp_dir='/data/shan/CenterNet/src/lib/../../exp/multi_pose', exp_id='hg_3x', fix_res=False, flip=0.5, flip_idx=[[1, 2], [3, 4], [5, 6], [7, 8], [9, 10], [11, 12], [13, 14], [15, 16]], flip_test=True, gpus=[0], gpus_str='0', head_conv=64, heads={'hm': 1, 'wh': 2, 'hps': 34, 'reg': 2, 'hm_hp': 17, 'hp_offset': 2}, hide_data_time=False, hm_hp=True, hm_hp_weight=1, hm_weight=1, hp_weight=1, input_h=512, input_res=512, input_w=512, keep_res=True, kitti_split='3dop', load_model='../models/multi_pose_hg_3x.pth', lr=0.000125, lr_step=[90, 120], master_batch_size=32, mean=array([[[0.40789655, 0.44719303, 0.47026116]]], dtype=float32), metric='loss', mse_loss=False, nms=False, no_color_aug=False, norm_wh=False, not_cuda_benchmark=False, not_hm_hp=False, not_prefetch_test=False, not_rand_crop=False, not_reg_bbox=False, not_reg_hp_offset=False, not_reg_offset=False, num_classes=1, num_epochs=140, num_iters=-1, num_stacks=2, num_workers=4, off_weight=1, output_h=128, output_res=128, output_w=128, pad=127, peak_thresh=0.2, print_iter=0, rect_mask=False, reg_bbox=True, reg_hp_offset=True, reg_loss='l1', reg_offset=True, resume=False, root_dir='/data/shan/CenterNet/src/lib/../..', rot_weight=1, rotate=0, save_all=False, save_dir='/data/shan/CenterNet/src/lib/../../exp/multi_pose/hg_3x', scale=0.4, scores_thresh=0.1, seed=317, shift=0.1, std=array([[[0.2886383 , 0.27408165, 0.27809834]]], dtype=float32), task='multi_pose', test=False, test_scales=[1.0], trainval=False, val_intervals=5, vis_thresh=0.3, wh_weight=0.1)
+==> initializing coco 2017 val data.
+loading annotations into memory...
+Done (t=0.29s)
+creating index...
+index created!
+Loaded val 5000 samples
+Creating model...
+loaded ../models/multi_pose_hg_3x.pth, epoch 149
+ATTENTION!!!
+pre.0.conv
+[('weight', torch.Size([128, 3, 7, 7]))]
+==========================================
+** pre.0.conv
+pre.0.bn
+[('weight', torch.Size([128])), ('bias', torch.Size([128]))]
+==========================================
+** pre.0.bn
+pre.0.relu
+[]
+==========================================
+** pre.0.relu
+pre.1.conv1
+[('weight', torch.Size([256, 128, 3, 3]))]
+==========================================
+** pre.1.conv1
+pre.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** pre.1.bn1
+pre.1.relu1
+[]
+==========================================
+** pre.1.relu1
+pre.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** pre.1.conv2
+pre.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** pre.1.bn2
+pre.1.skip.0
+[('weight', torch.Size([256, 128, 1, 1]))]
+==========================================
+** pre.1.skip.0
+pre.1.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** pre.1.skip.1
+pre.1.relu
+[]
+==========================================
+** pre.1.relu
+kps.0.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.up1.0.conv1
+kps.0.up1.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.0.bn1
+kps.0.up1.0.relu1
+[]
+==========================================
+** kps.0.up1.0.relu1
+kps.0.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.up1.0.conv2
+kps.0.up1.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.0.bn2
+kps.0.up1.0.skip
+[]
+==========================================
+** kps.0.up1.0.skip
+kps.0.up1.0.relu
+[]
+==========================================
+** kps.0.up1.0.relu
+kps.0.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.up1.1.conv1
+kps.0.up1.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.1.bn1
+kps.0.up1.1.relu1
+[]
+==========================================
+** kps.0.up1.1.relu1
+kps.0.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.up1.1.conv2
+kps.0.up1.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.1.bn2
+kps.0.up1.1.skip
+[]
+==========================================
+** kps.0.up1.1.skip
+kps.0.up1.1.relu
+[]
+==========================================
+** kps.0.up1.1.relu
+kps.0.max1
+[]
+==========================================
+** kps.0.max1
+kps.0.low1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low1.0.conv1
+kps.0.low1.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.0.bn1
+kps.0.low1.0.relu1
+[]
+==========================================
+** kps.0.low1.0.relu1
+kps.0.low1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low1.0.conv2
+kps.0.low1.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.0.bn2
+kps.0.low1.0.skip.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** kps.0.low1.0.skip.0
+kps.0.low1.0.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.0.skip.1
+kps.0.low1.0.relu
+[]
+==========================================
+** kps.0.low1.0.relu
+kps.0.low1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low1.1.conv1
+kps.0.low1.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.1.bn1
+kps.0.low1.1.relu1
+[]
+==========================================
+** kps.0.low1.1.relu1
+kps.0.low1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low1.1.conv2
+kps.0.low1.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.1.bn2
+kps.0.low1.1.skip
+[]
+==========================================
+** kps.0.low1.1.skip
+kps.0.low1.1.relu
+[]
+==========================================
+** kps.0.low1.1.relu
+kps.0.low2.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low2.up1.0.conv1
+kps.0.low2.up1.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.0.bn1
+kps.0.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.up1.0.relu1
+kps.0.low2.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low2.up1.0.conv2
+kps.0.low2.up1.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.0.bn2
+kps.0.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.up1.0.skip
+kps.0.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.up1.0.relu
+kps.0.low2.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low2.up1.1.conv1
+kps.0.low2.up1.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.1.bn1
+kps.0.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.up1.1.relu1
+kps.0.low2.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low2.up1.1.conv2
+kps.0.low2.up1.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.1.bn2
+kps.0.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.up1.1.skip
+kps.0.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.up1.1.relu
+kps.0.low2.max1
+[]
+==========================================
+** kps.0.low2.max1
+kps.0.low2.low1.0.conv1
+[('weight', torch.Size([384, 256, 3, 3]))]
+==========================================
+** kps.0.low2.low1.0.conv1
+kps.0.low2.low1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.0.bn1
+kps.0.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low1.0.relu1
+kps.0.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low1.0.conv2
+kps.0.low2.low1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.0.bn2
+kps.0.low2.low1.0.skip.0
+[('weight', torch.Size([384, 256, 1, 1]))]
+==========================================
+** kps.0.low2.low1.0.skip.0
+kps.0.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.0.skip.1
+kps.0.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low1.0.relu
+kps.0.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low1.1.conv1
+kps.0.low2.low1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.1.bn1
+kps.0.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low1.1.relu1
+kps.0.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low1.1.conv2
+kps.0.low2.low1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.1.bn2
+kps.0.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low1.1.skip
+kps.0.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low1.1.relu
+kps.0.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.up1.0.conv1
+kps.0.low2.low2.up1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.0.bn1
+kps.0.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.up1.0.relu1
+kps.0.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.up1.0.conv2
+kps.0.low2.low2.up1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.0.bn2
+kps.0.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.low2.up1.0.skip
+kps.0.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.up1.0.relu
+kps.0.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.up1.1.conv1
+kps.0.low2.low2.up1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.1.bn1
+kps.0.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.up1.1.relu1
+kps.0.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.up1.1.conv2
+kps.0.low2.low2.up1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.1.bn2
+kps.0.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.up1.1.skip
+kps.0.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.up1.1.relu
+kps.0.low2.low2.max1
+[]
+==========================================
+** kps.0.low2.low2.max1
+kps.0.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low1.0.conv1
+kps.0.low2.low2.low1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.0.bn1
+kps.0.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low1.0.relu1
+kps.0.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low1.0.conv2
+kps.0.low2.low2.low1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.0.bn2
+kps.0.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low1.0.skip.0
+kps.0.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.0.skip.1
+kps.0.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low1.0.relu
+kps.0.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low1.1.conv1
+kps.0.low2.low2.low1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.1.bn1
+kps.0.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low1.1.relu1
+kps.0.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low1.1.conv2
+kps.0.low2.low2.low1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.1.bn2
+kps.0.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low1.1.skip
+kps.0.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low1.1.relu
+kps.0.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.up1.0.conv1
+kps.0.low2.low2.low2.up1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.0.bn1
+kps.0.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.relu1
+kps.0.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.up1.0.conv2
+kps.0.low2.low2.low2.up1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.0.bn2
+kps.0.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.skip
+kps.0.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.relu
+kps.0.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.up1.1.conv1
+kps.0.low2.low2.low2.up1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.1.bn1
+kps.0.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.relu1
+kps.0.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.up1.1.conv2
+kps.0.low2.low2.low2.up1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.1.bn2
+kps.0.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.skip
+kps.0.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.relu
+kps.0.low2.low2.low2.max1
+[]
+==========================================
+** kps.0.low2.low2.low2.max1
+kps.0.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.conv1
+kps.0.low2.low2.low2.low1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.bn1
+kps.0.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.0.relu1
+kps.0.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.conv2
+kps.0.low2.low2.low2.low1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.bn2
+kps.0.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.skip.0
+kps.0.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.skip.1
+kps.0.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.0.relu
+kps.0.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low1.1.conv1
+kps.0.low2.low2.low2.low1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.1.bn1
+kps.0.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.relu1
+kps.0.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low1.1.conv2
+kps.0.low2.low2.low2.low1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.1.bn2
+kps.0.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.skip
+kps.0.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.relu
+kps.0.low2.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.conv1
+kps.0.low2.low2.low2.low2.up1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.bn1
+kps.0.low2.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.relu1
+kps.0.low2.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.conv2
+kps.0.low2.low2.low2.low2.up1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.bn2
+kps.0.low2.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.skip
+kps.0.low2.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.relu
+kps.0.low2.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.conv1
+kps.0.low2.low2.low2.low2.up1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.bn1
+kps.0.low2.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.relu1
+kps.0.low2.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.conv2
+kps.0.low2.low2.low2.low2.up1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.bn2
+kps.0.low2.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.skip
+kps.0.low2.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.relu
+kps.0.low2.low2.low2.low2.max1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.max1
+kps.0.low2.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([512, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.conv1
+kps.0.low2.low2.low2.low2.low1.0.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.bn1
+kps.0.low2.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.relu1
+kps.0.low2.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.conv2
+kps.0.low2.low2.low2.low2.low1.0.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.bn2
+kps.0.low2.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([512, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.skip.0
+kps.0.low2.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.skip.1
+kps.0.low2.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.relu
+kps.0.low2.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.conv1
+kps.0.low2.low2.low2.low2.low1.1.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.bn1
+kps.0.low2.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.relu1
+kps.0.low2.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.conv2
+kps.0.low2.low2.low2.low2.low1.1.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.bn2
+kps.0.low2.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.skip
+kps.0.low2.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.relu
+kps.0.low2.low2.low2.low2.low2.0.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.conv1
+kps.0.low2.low2.low2.low2.low2.0.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.bn1
+kps.0.low2.low2.low2.low2.low2.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.relu1
+kps.0.low2.low2.low2.low2.low2.0.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.conv2
+kps.0.low2.low2.low2.low2.low2.0.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.bn2
+kps.0.low2.low2.low2.low2.low2.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.skip
+kps.0.low2.low2.low2.low2.low2.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.relu
+kps.0.low2.low2.low2.low2.low2.1.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.conv1
+kps.0.low2.low2.low2.low2.low2.1.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.bn1
+kps.0.low2.low2.low2.low2.low2.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.relu1
+kps.0.low2.low2.low2.low2.low2.1.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.conv2
+kps.0.low2.low2.low2.low2.low2.1.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.bn2
+kps.0.low2.low2.low2.low2.low2.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.skip
+kps.0.low2.low2.low2.low2.low2.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.relu
+kps.0.low2.low2.low2.low2.low2.2.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.conv1
+kps.0.low2.low2.low2.low2.low2.2.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.bn1
+kps.0.low2.low2.low2.low2.low2.2.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.relu1
+kps.0.low2.low2.low2.low2.low2.2.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.conv2
+kps.0.low2.low2.low2.low2.low2.2.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.bn2
+kps.0.low2.low2.low2.low2.low2.2.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.skip
+kps.0.low2.low2.low2.low2.low2.2.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.relu
+kps.0.low2.low2.low2.low2.low2.3.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.conv1
+kps.0.low2.low2.low2.low2.low2.3.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.bn1
+kps.0.low2.low2.low2.low2.low2.3.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.relu1
+kps.0.low2.low2.low2.low2.low2.3.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.conv2
+kps.0.low2.low2.low2.low2.low2.3.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.bn2
+kps.0.low2.low2.low2.low2.low2.3.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.skip
+kps.0.low2.low2.low2.low2.low2.3.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.relu
+kps.0.low2.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.conv1
+kps.0.low2.low2.low2.low2.low3.0.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.bn1
+kps.0.low2.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.relu1
+kps.0.low2.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.conv2
+kps.0.low2.low2.low2.low2.low3.0.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.bn2
+kps.0.low2.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.skip
+kps.0.low2.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.relu
+kps.0.low2.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 512, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.conv1
+kps.0.low2.low2.low2.low2.low3.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.bn1
+kps.0.low2.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.relu1
+kps.0.low2.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.conv2
+kps.0.low2.low2.low2.low2.low3.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.bn2
+kps.0.low2.low2.low2.low2.low3.1.skip.0
+[('weight', torch.Size([384, 512, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.skip.0
+kps.0.low2.low2.low2.low2.low3.1.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.skip.1
+kps.0.low2.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.relu
+kps.0.low2.low2.low2.low2.up2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up2
+kps.0.low2.low2.low2.low2.merge
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.merge
+kps.0.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low3.0.conv1
+kps.0.low2.low2.low2.low3.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.0.bn1
+kps.0.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.relu1
+kps.0.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low3.0.conv2
+kps.0.low2.low2.low2.low3.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.0.bn2
+kps.0.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.skip
+kps.0.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.relu
+kps.0.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low3.1.conv1
+kps.0.low2.low2.low2.low3.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.1.bn1
+kps.0.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.relu1
+kps.0.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low2.low3.1.conv2
+kps.0.low2.low2.low2.low3.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.1.bn2
+kps.0.low2.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.skip
+kps.0.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.relu
+kps.0.low2.low2.low2.up2
+[]
+==========================================
+** kps.0.low2.low2.low2.up2
+kps.0.low2.low2.low2.merge
+[]
+==========================================
+** kps.0.low2.low2.low2.merge
+kps.0.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low3.0.conv1
+kps.0.low2.low2.low3.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.0.bn1
+kps.0.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low3.0.relu1
+kps.0.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low3.0.conv2
+kps.0.low2.low2.low3.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.0.bn2
+kps.0.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low3.0.skip
+kps.0.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low3.0.relu
+kps.0.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low3.1.conv1
+kps.0.low2.low2.low3.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.1.bn1
+kps.0.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low3.1.relu1
+kps.0.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low2.low3.1.conv2
+kps.0.low2.low2.low3.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.1.bn2
+kps.0.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low3.1.skip
+kps.0.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low3.1.relu
+kps.0.low2.low2.up2
+[]
+==========================================
+** kps.0.low2.low2.up2
+kps.0.low2.low2.merge
+[]
+==========================================
+** kps.0.low2.low2.merge
+kps.0.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low3.0.conv1
+kps.0.low2.low3.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low3.0.bn1
+kps.0.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low3.0.relu1
+kps.0.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low3.0.conv2
+kps.0.low2.low3.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low3.0.bn2
+kps.0.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low3.0.skip
+kps.0.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low3.0.relu
+kps.0.low2.low3.1.conv1
+[('weight', torch.Size([256, 384, 3, 3]))]
+==========================================
+** kps.0.low2.low3.1.conv1
+kps.0.low2.low3.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.low3.1.bn1
+kps.0.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low3.1.relu1
+kps.0.low2.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low2.low3.1.conv2
+kps.0.low2.low3.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.low3.1.bn2
+kps.0.low2.low3.1.skip.0
+[('weight', torch.Size([256, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low3.1.skip.0
+kps.0.low2.low3.1.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.low3.1.skip.1
+kps.0.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low3.1.relu
+kps.0.low2.up2
+[]
+==========================================
+** kps.0.low2.up2
+kps.0.low2.merge
+[]
+==========================================
+** kps.0.low2.merge
+kps.0.low3.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low3.0.conv1
+kps.0.low3.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.0.bn1
+kps.0.low3.0.relu1
+[]
+==========================================
+** kps.0.low3.0.relu1
+kps.0.low3.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low3.0.conv2
+kps.0.low3.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.0.bn2
+kps.0.low3.0.skip
+[]
+==========================================
+** kps.0.low3.0.skip
+kps.0.low3.0.relu
+[]
+==========================================
+** kps.0.low3.0.relu
+kps.0.low3.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low3.1.conv1
+kps.0.low3.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.1.bn1
+kps.0.low3.1.relu1
+[]
+==========================================
+** kps.0.low3.1.relu1
+kps.0.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.0.low3.1.conv2
+kps.0.low3.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.1.bn2
+kps.0.low3.1.skip
+[]
+==========================================
+** kps.0.low3.1.skip
+kps.0.low3.1.relu
+[]
+==========================================
+** kps.0.low3.1.relu
+kps.0.up2
+[]
+==========================================
+** kps.0.up2
+kps.0.merge
+[]
+==========================================
+** kps.0.merge
+kps.1.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.up1.0.conv1
+kps.1.up1.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.0.bn1
+kps.1.up1.0.relu1
+[]
+==========================================
+** kps.1.up1.0.relu1
+kps.1.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.up1.0.conv2
+kps.1.up1.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.0.bn2
+kps.1.up1.0.skip
+[]
+==========================================
+** kps.1.up1.0.skip
+kps.1.up1.0.relu
+[]
+==========================================
+** kps.1.up1.0.relu
+kps.1.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.up1.1.conv1
+kps.1.up1.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.1.bn1
+kps.1.up1.1.relu1
+[]
+==========================================
+** kps.1.up1.1.relu1
+kps.1.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.up1.1.conv2
+kps.1.up1.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.1.bn2
+kps.1.up1.1.skip
+[]
+==========================================
+** kps.1.up1.1.skip
+kps.1.up1.1.relu
+[]
+==========================================
+** kps.1.up1.1.relu
+kps.1.max1
+[]
+==========================================
+** kps.1.max1
+kps.1.low1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low1.0.conv1
+kps.1.low1.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.0.bn1
+kps.1.low1.0.relu1
+[]
+==========================================
+** kps.1.low1.0.relu1
+kps.1.low1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low1.0.conv2
+kps.1.low1.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.0.bn2
+kps.1.low1.0.skip.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** kps.1.low1.0.skip.0
+kps.1.low1.0.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.0.skip.1
+kps.1.low1.0.relu
+[]
+==========================================
+** kps.1.low1.0.relu
+kps.1.low1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low1.1.conv1
+kps.1.low1.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.1.bn1
+kps.1.low1.1.relu1
+[]
+==========================================
+** kps.1.low1.1.relu1
+kps.1.low1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low1.1.conv2
+kps.1.low1.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.1.bn2
+kps.1.low1.1.skip
+[]
+==========================================
+** kps.1.low1.1.skip
+kps.1.low1.1.relu
+[]
+==========================================
+** kps.1.low1.1.relu
+kps.1.low2.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low2.up1.0.conv1
+kps.1.low2.up1.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.0.bn1
+kps.1.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.up1.0.relu1
+kps.1.low2.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low2.up1.0.conv2
+kps.1.low2.up1.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.0.bn2
+kps.1.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.up1.0.skip
+kps.1.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.up1.0.relu
+kps.1.low2.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low2.up1.1.conv1
+kps.1.low2.up1.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.1.bn1
+kps.1.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.up1.1.relu1
+kps.1.low2.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low2.up1.1.conv2
+kps.1.low2.up1.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.1.bn2
+kps.1.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.up1.1.skip
+kps.1.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.up1.1.relu
+kps.1.low2.max1
+[]
+==========================================
+** kps.1.low2.max1
+kps.1.low2.low1.0.conv1
+[('weight', torch.Size([384, 256, 3, 3]))]
+==========================================
+** kps.1.low2.low1.0.conv1
+kps.1.low2.low1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.0.bn1
+kps.1.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low1.0.relu1
+kps.1.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low1.0.conv2
+kps.1.low2.low1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.0.bn2
+kps.1.low2.low1.0.skip.0
+[('weight', torch.Size([384, 256, 1, 1]))]
+==========================================
+** kps.1.low2.low1.0.skip.0
+kps.1.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.0.skip.1
+kps.1.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low1.0.relu
+kps.1.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low1.1.conv1
+kps.1.low2.low1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.1.bn1
+kps.1.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low1.1.relu1
+kps.1.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low1.1.conv2
+kps.1.low2.low1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.1.bn2
+kps.1.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low1.1.skip
+kps.1.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low1.1.relu
+kps.1.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.up1.0.conv1
+kps.1.low2.low2.up1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.0.bn1
+kps.1.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.up1.0.relu1
+kps.1.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.up1.0.conv2
+kps.1.low2.low2.up1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.0.bn2
+kps.1.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.low2.up1.0.skip
+kps.1.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.up1.0.relu
+kps.1.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.up1.1.conv1
+kps.1.low2.low2.up1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.1.bn1
+kps.1.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.up1.1.relu1
+kps.1.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.up1.1.conv2
+kps.1.low2.low2.up1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.1.bn2
+kps.1.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.up1.1.skip
+kps.1.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.up1.1.relu
+kps.1.low2.low2.max1
+[]
+==========================================
+** kps.1.low2.low2.max1
+kps.1.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low1.0.conv1
+kps.1.low2.low2.low1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.0.bn1
+kps.1.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low1.0.relu1
+kps.1.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low1.0.conv2
+kps.1.low2.low2.low1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.0.bn2
+kps.1.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low1.0.skip.0
+kps.1.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.0.skip.1
+kps.1.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low1.0.relu
+kps.1.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low1.1.conv1
+kps.1.low2.low2.low1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.1.bn1
+kps.1.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low1.1.relu1
+kps.1.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low1.1.conv2
+kps.1.low2.low2.low1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.1.bn2
+kps.1.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low1.1.skip
+kps.1.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low1.1.relu
+kps.1.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.up1.0.conv1
+kps.1.low2.low2.low2.up1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.0.bn1
+kps.1.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.relu1
+kps.1.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.up1.0.conv2
+kps.1.low2.low2.low2.up1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.0.bn2
+kps.1.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.skip
+kps.1.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.relu
+kps.1.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.up1.1.conv1
+kps.1.low2.low2.low2.up1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.1.bn1
+kps.1.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.relu1
+kps.1.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.up1.1.conv2
+kps.1.low2.low2.low2.up1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.1.bn2
+kps.1.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.skip
+kps.1.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.relu
+kps.1.low2.low2.low2.max1
+[]
+==========================================
+** kps.1.low2.low2.low2.max1
+kps.1.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.conv1
+kps.1.low2.low2.low2.low1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.bn1
+kps.1.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.0.relu1
+kps.1.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.conv2
+kps.1.low2.low2.low2.low1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.bn2
+kps.1.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.skip.0
+kps.1.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.skip.1
+kps.1.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.0.relu
+kps.1.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low1.1.conv1
+kps.1.low2.low2.low2.low1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.1.bn1
+kps.1.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.relu1
+kps.1.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low1.1.conv2
+kps.1.low2.low2.low2.low1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.1.bn2
+kps.1.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.skip
+kps.1.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.relu
+kps.1.low2.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.conv1
+kps.1.low2.low2.low2.low2.up1.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.bn1
+kps.1.low2.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.relu1
+kps.1.low2.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.conv2
+kps.1.low2.low2.low2.low2.up1.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.bn2
+kps.1.low2.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.skip
+kps.1.low2.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.relu
+kps.1.low2.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.conv1
+kps.1.low2.low2.low2.low2.up1.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.bn1
+kps.1.low2.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.relu1
+kps.1.low2.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.conv2
+kps.1.low2.low2.low2.low2.up1.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.bn2
+kps.1.low2.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.skip
+kps.1.low2.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.relu
+kps.1.low2.low2.low2.low2.max1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.max1
+kps.1.low2.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([512, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.conv1
+kps.1.low2.low2.low2.low2.low1.0.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.bn1
+kps.1.low2.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.relu1
+kps.1.low2.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.conv2
+kps.1.low2.low2.low2.low2.low1.0.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.bn2
+kps.1.low2.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([512, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.skip.0
+kps.1.low2.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.skip.1
+kps.1.low2.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.relu
+kps.1.low2.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.conv1
+kps.1.low2.low2.low2.low2.low1.1.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.bn1
+kps.1.low2.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.relu1
+kps.1.low2.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.conv2
+kps.1.low2.low2.low2.low2.low1.1.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.bn2
+kps.1.low2.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.skip
+kps.1.low2.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.relu
+kps.1.low2.low2.low2.low2.low2.0.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.conv1
+kps.1.low2.low2.low2.low2.low2.0.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.bn1
+kps.1.low2.low2.low2.low2.low2.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.relu1
+kps.1.low2.low2.low2.low2.low2.0.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.conv2
+kps.1.low2.low2.low2.low2.low2.0.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.bn2
+kps.1.low2.low2.low2.low2.low2.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.skip
+kps.1.low2.low2.low2.low2.low2.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.relu
+kps.1.low2.low2.low2.low2.low2.1.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.conv1
+kps.1.low2.low2.low2.low2.low2.1.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.bn1
+kps.1.low2.low2.low2.low2.low2.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.relu1
+kps.1.low2.low2.low2.low2.low2.1.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.conv2
+kps.1.low2.low2.low2.low2.low2.1.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.bn2
+kps.1.low2.low2.low2.low2.low2.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.skip
+kps.1.low2.low2.low2.low2.low2.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.relu
+kps.1.low2.low2.low2.low2.low2.2.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.conv1
+kps.1.low2.low2.low2.low2.low2.2.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.bn1
+kps.1.low2.low2.low2.low2.low2.2.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.relu1
+kps.1.low2.low2.low2.low2.low2.2.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.conv2
+kps.1.low2.low2.low2.low2.low2.2.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.bn2
+kps.1.low2.low2.low2.low2.low2.2.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.skip
+kps.1.low2.low2.low2.low2.low2.2.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.relu
+kps.1.low2.low2.low2.low2.low2.3.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.conv1
+kps.1.low2.low2.low2.low2.low2.3.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.bn1
+kps.1.low2.low2.low2.low2.low2.3.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.relu1
+kps.1.low2.low2.low2.low2.low2.3.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.conv2
+kps.1.low2.low2.low2.low2.low2.3.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.bn2
+kps.1.low2.low2.low2.low2.low2.3.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.skip
+kps.1.low2.low2.low2.low2.low2.3.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.relu
+kps.1.low2.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.conv1
+kps.1.low2.low2.low2.low2.low3.0.bn1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.bn1
+kps.1.low2.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.relu1
+kps.1.low2.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([512, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.conv2
+kps.1.low2.low2.low2.low2.low3.0.bn2
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.bn2
+kps.1.low2.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.skip
+kps.1.low2.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.relu
+kps.1.low2.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 512, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.conv1
+kps.1.low2.low2.low2.low2.low3.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.bn1
+kps.1.low2.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.relu1
+kps.1.low2.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.conv2
+kps.1.low2.low2.low2.low2.low3.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.bn2
+kps.1.low2.low2.low2.low2.low3.1.skip.0
+[('weight', torch.Size([384, 512, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.skip.0
+kps.1.low2.low2.low2.low2.low3.1.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.skip.1
+kps.1.low2.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.relu
+kps.1.low2.low2.low2.low2.up2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up2
+kps.1.low2.low2.low2.low2.merge
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.merge
+kps.1.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low3.0.conv1
+kps.1.low2.low2.low2.low3.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.0.bn1
+kps.1.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.relu1
+kps.1.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low3.0.conv2
+kps.1.low2.low2.low2.low3.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.0.bn2
+kps.1.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.skip
+kps.1.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.relu
+kps.1.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low3.1.conv1
+kps.1.low2.low2.low2.low3.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.1.bn1
+kps.1.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.relu1
+kps.1.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low2.low3.1.conv2
+kps.1.low2.low2.low2.low3.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.1.bn2
+kps.1.low2.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.skip
+kps.1.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.relu
+kps.1.low2.low2.low2.up2
+[]
+==========================================
+** kps.1.low2.low2.low2.up2
+kps.1.low2.low2.low2.merge
+[]
+==========================================
+** kps.1.low2.low2.low2.merge
+kps.1.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low3.0.conv1
+kps.1.low2.low2.low3.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.0.bn1
+kps.1.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low3.0.relu1
+kps.1.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low3.0.conv2
+kps.1.low2.low2.low3.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.0.bn2
+kps.1.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low3.0.skip
+kps.1.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low3.0.relu
+kps.1.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low3.1.conv1
+kps.1.low2.low2.low3.1.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.1.bn1
+kps.1.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low3.1.relu1
+kps.1.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low2.low3.1.conv2
+kps.1.low2.low2.low3.1.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.1.bn2
+kps.1.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low3.1.skip
+kps.1.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low3.1.relu
+kps.1.low2.low2.up2
+[]
+==========================================
+** kps.1.low2.low2.up2
+kps.1.low2.low2.merge
+[]
+==========================================
+** kps.1.low2.low2.merge
+kps.1.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low3.0.conv1
+kps.1.low2.low3.0.bn1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low3.0.bn1
+kps.1.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low3.0.relu1
+kps.1.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low3.0.conv2
+kps.1.low2.low3.0.bn2
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low3.0.bn2
+kps.1.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low3.0.skip
+kps.1.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low3.0.relu
+kps.1.low2.low3.1.conv1
+[('weight', torch.Size([256, 384, 3, 3]))]
+==========================================
+** kps.1.low2.low3.1.conv1
+kps.1.low2.low3.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.low3.1.bn1
+kps.1.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low3.1.relu1
+kps.1.low2.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low2.low3.1.conv2
+kps.1.low2.low3.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.low3.1.bn2
+kps.1.low2.low3.1.skip.0
+[('weight', torch.Size([256, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low3.1.skip.0
+kps.1.low2.low3.1.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.low3.1.skip.1
+kps.1.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low3.1.relu
+kps.1.low2.up2
+[]
+==========================================
+** kps.1.low2.up2
+kps.1.low2.merge
+[]
+==========================================
+** kps.1.low2.merge
+kps.1.low3.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low3.0.conv1
+kps.1.low3.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.0.bn1
+kps.1.low3.0.relu1
+[]
+==========================================
+** kps.1.low3.0.relu1
+kps.1.low3.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low3.0.conv2
+kps.1.low3.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.0.bn2
+kps.1.low3.0.skip
+[]
+==========================================
+** kps.1.low3.0.skip
+kps.1.low3.0.relu
+[]
+==========================================
+** kps.1.low3.0.relu
+kps.1.low3.1.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low3.1.conv1
+kps.1.low3.1.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.1.bn1
+kps.1.low3.1.relu1
+[]
+==========================================
+** kps.1.low3.1.relu1
+kps.1.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** kps.1.low3.1.conv2
+kps.1.low3.1.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.1.bn2
+kps.1.low3.1.skip
+[]
+==========================================
+** kps.1.low3.1.skip
+kps.1.low3.1.relu
+[]
+==========================================
+** kps.1.low3.1.relu
+kps.1.up2
+[]
+==========================================
+** kps.1.up2
+kps.1.merge
+[]
+==========================================
+** kps.1.merge
+cnvs.0.conv
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** cnvs.0.conv
+cnvs.0.bn
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+tensor([ -84.8075,  -94.2162,  -15.6226,  -40.0360,  -28.9978,   -5.9501,
+        -102.1348,  144.5878, -169.6396,   -5.9651, -143.8641,  -19.8134,
+        -110.8372,  -29.3668,  -60.2024,  -70.5301, -132.6658, -207.4369,
+         -35.9385,  -90.3984,  -32.0287,  -92.1794,   49.4258,  107.5079,
+          -2.4780,   16.2072,  -91.7267,  -63.5647, -144.4800,   -4.4348,
+          91.2023,  -46.7074,  100.8829,  163.4619, -248.0970,  185.7152,
+        -136.8954,  -56.9381,  -16.3509,  -12.1008,  -35.1330, -115.5687,
+         -55.4337, -131.3926, -235.2109,   10.0840, -100.3276,  -86.4271,
+          79.2802,   71.9521,  -46.0750,   81.5030,   -2.6150,  -19.7193,
+         -42.7911, -131.2469,  -83.6978,   92.1389,  -45.2384,   18.7221,
+          25.4728,  -35.1126,  -72.8694,  -55.0302,   45.2142,  -68.5731,
+          81.8931, -144.3290,  -14.6623,  -94.4460, -168.1062,  -89.7711,
+        -121.0402,  -17.7892,   51.9222, -101.7694,  -28.9046,  -70.2361,
+         -85.3177,   61.7201, -124.0001,  -78.6081, -169.8784,  -63.0278,
+         -26.5815,  179.9726,  -33.5192, -113.1679,  -78.1717,  -56.4903,
+         -46.6099, -129.6704,  -48.3193,  -24.2699,  108.2697,   78.3751,
+        -129.7775, -133.6706,  -45.7253,  -41.4135,  -87.4475,  -65.7838,
+         -58.4957,  -96.2117,  -60.8695,   48.7277, -128.1988,   -8.1959,
+         -21.4885,  -82.5513,  -87.7906,  -74.0402,  148.9904,   12.6454,
+         -35.6671,  -60.0836,   31.6016,  -58.6292,   -9.5119,   51.9014,
+         -21.9826,   66.3222,  -35.3592, -130.2342,   15.2516,  -68.1062,
+         -81.9034,  -26.9569, -102.3212, -100.3526, -147.3631,  -85.3882,
+         -90.1723,  -20.3250,   38.5336,  -21.1946,  -20.3052, -142.9242,
+         -97.5417,   -7.0573,  -98.3511,  -48.6474,   77.3734,  -53.2431,
+         -45.0472,  -12.7812, -153.4599,   83.4721,   43.5406,  -20.0601,
+         -91.1309, -142.5038,  -78.9470,  -34.8493,  -87.9279, -127.5876,
+         -80.1253, -105.4974,  -72.6155,  -75.7859, -106.4960,  -46.9797,
+         -54.1698,   31.5904,  -40.1871,  -33.1618,  -54.9020,  224.6936,
+         126.1860,   40.3792,  -57.8267,  -21.9485,   16.0709,   96.7995,
+        -132.0535, -123.8753, -160.1043,  -93.5608,    4.8659, -126.1890,
+         -63.8830,  -88.2881,  -25.5931,  -44.0414,   76.8290,   13.5686,
+          50.3345,  110.2863,    8.2475, -157.2828, -119.7564,   29.0298,
+           0.9737,  -19.9885,  -42.5712,  -25.7497,  -89.0154,    1.1071,
+          58.2798,   21.9668,  -46.4688, -167.3707,   64.4679,  -41.3732,
+        -198.1422,  -69.5549,   -9.0077, -188.0101,  -14.3577,  -23.9390,
+         -79.0492, -194.8753,  -61.6845,  -50.3018,   72.7914,  -59.3287,
+          -1.2530,   21.7385,  -78.5441,  -79.5495,    5.0971, -142.8214,
+        -133.8661,   -3.3408, -119.5444,  -68.1864, -187.0141, -106.7122,
+          -4.1563,   18.0810,  -87.0533,  -82.7666,   -9.7494, -140.0108,
+          -8.7823,  115.9296,  -70.6858,  -91.3008,  -88.8457,   10.0866,
+         -55.0153, -194.2237,  -95.1435,  -82.4538,   60.0068,   89.2300,
+         -51.7164,  -47.1402,  -77.9197, -100.9234, -254.2170,  -91.5331,
+          -7.6468, -149.9387, -119.0527,  -15.7611], device='cuda:0')
+tensor([1.1977e+04, 1.6730e+04, 1.1326e+04, 5.7178e+04, 2.1186e+04, 2.6073e+04,
+        1.4768e+04, 1.3468e+04, 9.4940e+03, 1.1383e+04, 2.9504e+04, 2.0387e+04,
+        1.2084e+04, 1.0609e+04, 3.0937e+04, 2.8130e+04, 2.6714e+04, 2.5302e+04,
+        2.7979e+04, 1.6020e+04, 2.7185e+04, 1.4537e+04, 4.0896e+03, 1.5454e+04,
+        1.6387e+04, 8.4026e+03, 4.4488e+03, 1.0210e+04, 4.6202e+04, 3.0841e+04,
+        1.5195e+04, 1.8495e+04, 4.7927e+04, 1.2127e+04, 2.7513e+04, 2.2795e+04,
+        3.3687e+04, 4.4085e+04, 1.8091e+04, 2.7429e+04, 2.2194e+04, 2.7344e+04,
+        2.8989e+04, 2.9704e+04, 3.3244e+04, 7.0710e+03, 3.6983e+04, 8.9301e+03,
+        1.2830e+04, 7.7529e+03, 9.9154e+03, 2.0205e+04, 7.3626e+03, 1.8067e+04,
+        5.3136e+04, 2.1790e+04, 1.5696e+04, 3.6934e+04, 3.6252e+03, 2.9352e+01,
+        2.7624e+04, 1.1151e+04, 2.2833e+04, 6.5504e+04, 1.5881e+04, 2.3366e+04,
+        1.3899e+04, 1.2734e+04, 3.7802e+04, 4.7869e+04, 1.3577e+04, 1.4901e+04,
+        2.4707e+04, 2.1413e+04, 2.3555e+04, 2.6708e+04, 3.9622e+04, 3.9173e+04,
+        1.8100e+04, 3.6540e+04, 2.9242e+04, 9.0397e+03, 4.3277e+04, 1.8979e+04,
+        3.7438e+04, 2.6715e+04, 1.7418e+04, 7.4296e+03, 1.7265e+04, 2.2678e+04,
+        2.5766e+04, 2.3908e+04, 3.1317e+04, 3.9009e+03, 3.2463e+04, 2.8611e+04,
+        9.7415e+03, 2.5274e+04, 3.5299e+04, 7.5691e+03, 6.0772e+03, 7.7583e+03,
+        1.6797e+04, 2.0820e+04, 1.8090e+04, 1.0306e+04, 4.3404e+04, 2.3228e+04,
+        1.3131e+04, 2.4070e+04, 1.2727e+04, 2.3573e+04, 1.0040e+04, 6.3005e+03,
+        2.8682e+04, 3.5170e+04, 1.6080e+04, 2.2193e+04, 9.4795e+03, 6.9425e+03,
+        2.0153e+04, 2.7082e+04, 1.9742e+04, 4.0021e+04, 2.9345e+04, 3.1982e+04,
+        2.8155e+04, 5.6453e+03, 2.1523e+04, 2.5229e+04, 2.4668e+04, 1.4655e+04,
+        2.1417e+04, 1.5724e+04, 9.2246e+03, 2.3975e+04, 7.7776e+03, 9.2181e+03,
+        4.1351e+04, 1.1600e+04, 2.8537e+04, 2.3090e+04, 3.9650e+04, 3.4902e+04,
+        3.3895e+04, 2.7281e+04, 3.1710e+04, 3.1063e+04, 1.4001e+04, 3.4225e+04,
+        9.4428e+03, 3.8363e+04, 3.5324e+04, 2.6236e+04, 1.4176e+04, 3.9563e+04,
+        2.8294e+04, 1.3597e+04, 1.0137e+04, 1.5867e+04, 1.1992e+04, 2.4862e+04,
+        1.2616e+04, 2.5569e+04, 1.6078e+04, 1.9359e+04, 1.5752e+04, 4.7197e+04,
+        2.3318e+04, 2.8052e+04, 2.2254e+04, 1.2103e+04, 1.5347e+04, 2.1534e+04,
+        3.6437e+04, 1.3073e+04, 3.6194e+04, 2.4459e+04, 1.9834e+04, 2.3260e+04,
+        6.5504e+04, 1.5211e+04, 8.1705e+03, 2.5181e+04, 3.1540e+04, 1.5055e+04,
+        2.5169e+04, 1.3088e+04, 1.5181e+04, 3.3693e+04, 4.7802e+04, 2.2402e+04,
+        9.8889e+03, 5.4372e+03, 2.6122e+04, 3.9500e+04, 4.3435e+04, 4.1880e+04,
+        2.4112e+04, 1.3851e+04, 2.0370e+04, 3.0204e+04, 2.0313e+04, 3.1264e+04,
+        3.8190e+04, 1.7670e+04, 4.9799e+04, 3.4617e+04, 3.1017e+04, 2.0864e+04,
+        2.2138e+04, 1.2704e+04, 1.4487e+04, 2.1156e+04, 1.8874e+04, 1.7141e+04,
+        1.7174e+04, 1.8060e+04, 6.0399e+04, 1.3311e+04, 4.9890e+03, 2.2008e+04,
+        2.4324e+04, 1.9927e+04, 6.1096e+03, 1.8304e+04, 4.3749e+03, 4.7160e+04,
+        2.6280e+04, 2.4325e+04, 2.5748e+04, 2.1570e+04, 5.9367e+04, 3.1412e+04,
+        1.4751e+04, 1.2298e+04, 1.9213e+04, 3.2107e+04, 2.0762e+04, 1.5159e+04,
+        2.0161e+04, 1.8592e+04, 2.0540e+04, 4.3149e+04, 9.0670e+03, 2.0029e+04,
+        1.3379e+04, 6.4631e+03, 4.0595e+04, 2.6136e+04, 1.0586e+04, 1.6559e+04,
+        1.6112e+04, 8.8592e+03, 2.3301e+04, 2.6201e+04], device='cuda:0')
+^^^^^ cnvs.0.bn
+cnvs.0.relu
+[]
+==========================================
+** cnvs.0.relu
+cnvs.1.conv
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** cnvs.1.conv
+cnvs.1.bn
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+tensor([-4.7461e+00, -8.3225e+01,  8.6224e+01,  1.4275e+02,  1.4627e+02,
+        -2.7305e+02, -5.8028e+01, -2.1578e+02,  3.8540e+01, -7.2806e+01,
+         7.1160e+01,  1.4033e+02, -8.9440e+01, -1.6095e+02, -2.0577e+02,
+         1.8952e+01, -1.5656e+02, -8.1318e+00, -1.1946e+02,  2.8063e+01,
+        -6.3869e+01, -1.2638e+02, -8.7328e+01, -5.5864e+01, -6.5910e+01,
+         1.8757e+02, -2.3269e+02, -4.4837e+01, -1.8789e+02, -2.9269e-01,
+         1.3191e+01,  3.3768e+02, -3.1728e+02, -3.9647e+01, -5.1434e+01,
+        -1.0701e+02,  5.6045e+00,  2.3798e+00, -2.3311e+02,  6.9775e+01,
+        -1.3120e+02,  6.3561e+01,  1.0427e+02, -1.8950e+02,  1.0095e+01,
+        -1.0091e+02,  1.5715e+02,  5.6271e+01, -2.3310e+02,  5.3271e+00,
+         9.4215e+01,  1.0040e+02, -1.1843e+02, -1.3764e+02, -1.6840e+02,
+         1.4188e+02,  2.8920e+00,  8.5198e+01, -8.2663e+00,  1.7095e+02,
+        -9.7647e+01, -1.5392e+02, -1.5304e+00, -1.8364e+02, -1.4388e+01,
+        -2.5838e+02,  1.7714e+01, -3.9877e+01, -1.9597e+02, -3.6815e+01,
+        -1.8024e+02,  3.0585e+01,  8.2061e+01, -1.4102e+01, -1.0032e+02,
+        -3.6730e+02, -5.1663e+01,  6.3771e+01,  3.7595e+01, -1.9651e+02,
+         1.1856e+02,  4.3489e+01,  4.6837e+01, -1.3010e-01,  1.5750e+02,
+         6.3869e+01, -1.7141e+02,  2.8973e+02,  1.1393e+02, -8.8667e+01,
+        -1.5668e+01, -3.4693e+01, -6.0759e+01, -3.2202e+02, -1.2888e+01,
+        -2.0303e+02,  1.4804e+02, -2.6349e+01, -9.9070e+01, -1.5113e+02,
+        -1.5865e+02,  1.9882e+02, -1.9279e+02, -1.7052e+02,  5.1256e+01,
+         1.3078e+01, -7.7593e+01, -1.3454e+02,  2.3009e+02, -1.3555e+02,
+         4.5762e+01, -1.8162e+02,  3.5284e+01, -2.4138e+02,  4.4374e+00,
+        -2.1233e+02,  1.3526e+02,  2.2978e+01, -2.4724e+02, -1.0156e+01,
+        -9.5008e+01, -5.5830e+01,  1.9964e+01, -1.7822e+02, -3.9237e+02,
+         1.8127e+01, -5.1999e+01, -5.8209e+00,  5.7886e+01,  2.5844e+01,
+         1.0037e+02, -8.6147e+00, -8.1557e+01, -1.4168e+02, -1.0483e+02,
+         4.1220e-02,  1.7733e+02,  4.9544e+01,  2.0811e+01,  2.3473e+02,
+        -1.1327e+02, -6.0343e+01,  1.7653e+02,  6.0382e+01, -1.0851e+02,
+        -2.2275e+02, -2.4191e+02, -6.0655e+00,  2.5017e+01, -4.1621e+00,
+         1.3704e+02,  3.2688e+00, -8.3688e+01,  2.5116e+01, -1.6653e+02,
+        -4.7517e+01, -2.2676e+01, -2.2883e+02, -4.3467e+02, -1.4447e+02,
+         1.3017e+02,  5.0379e+01,  2.4573e+01, -9.3234e+01,  3.6326e+01,
+        -1.2520e+02,  1.4631e+01,  2.7340e+02, -2.3149e+02, -1.8061e+01,
+        -1.1188e+02, -1.3494e+01, -1.4057e+02, -1.2721e+02, -1.1362e+02,
+         1.8859e+01, -1.4695e+02, -3.5846e+01,  1.2597e+02, -5.2903e+01,
+        -1.9461e+02, -5.9504e+01, -7.7524e+01, -6.6082e+01, -1.5319e+01,
+        -2.3801e+02, -3.6450e+00, -2.8915e+02,  1.3377e+02, -2.6630e+02,
+        -3.5942e+01, -8.5621e+01, -1.3575e+02, -9.8072e+01, -1.6537e+02,
+        -1.0675e+02, -5.6525e+01, -1.4427e+01, -1.4843e+01,  2.2875e+01,
+         1.3019e+02,  5.0098e+01, -6.1554e+01, -2.0673e+01, -8.6565e+01,
+        -6.4568e+00, -9.0986e+01,  4.5356e+01, -1.5828e+02, -9.0795e+01,
+        -3.3576e+01, -4.3345e+01, -1.2043e+01, -4.5360e+01, -1.5119e+02,
+        -9.8814e+01,  6.0357e+01,  9.5372e+01, -6.7542e+01, -1.2846e+02,
+         2.6861e+01, -3.3223e+00, -1.3695e+02,  3.8012e+01, -1.7250e+02,
+        -1.1301e+02,  4.0274e+00, -2.0373e+01,  7.7340e+01, -2.4884e+01,
+        -5.9873e+01,  1.2906e+02, -1.9859e+02,  5.8991e+01, -1.7298e+02,
+        -1.4160e+02, -1.4225e+01,  2.5828e+01, -5.8762e+00, -2.3042e+02,
+        -4.0257e+01,  2.7526e+01, -5.8425e+01,  7.8435e+00, -1.8611e+02,
+         3.0569e+01, -3.0952e+01, -1.6226e+02,  1.4693e+02, -3.1612e+02,
+        -9.7424e+01, -9.1980e+00,  6.0194e+01, -3.4401e+02, -9.6656e+01,
+        -1.0107e+02], device='cuda:0')
+tensor([2.5982e+04, 6.5504e+04, 6.5504e+04, 4.7233e+04, 3.1196e+04, 6.5504e+04,
+        2.7879e+04, 6.5504e+04, 6.5504e+04, 3.1348e+04, 2.5636e+04, 6.5504e+04,
+        5.3661e+04, 6.5504e+04, 6.5504e+04, 2.7967e+04, 5.7582e+04, 3.8750e+04,
+        5.1481e+04, 5.0819e+04, 6.5504e+04, 6.3650e+04, 1.2249e+04, 5.1437e+04,
+        2.2156e+04, 6.5504e+04, 2.8410e+04, 6.5504e+04, 6.4709e+04, 2.3328e+04,
+        3.5689e+04, 6.5504e+04, 1.2366e+04, 4.8819e+04, 5.2252e+04, 6.5504e+04,
+        6.5504e+04, 3.1998e+04, 3.3961e+04, 1.2433e+04, 5.8875e+04, 4.7504e+04,
+        6.5504e+04, 4.7977e+04, 2.7934e+04, 1.9256e+04, 4.6555e+04, 4.5711e+04,
+        2.6447e+04, 6.5504e+04, 2.8589e+04, 4.6474e+04, 6.5504e+04, 6.5504e+04,
+        6.5504e+04, 5.0276e+04, 1.5410e+04, 5.3638e+04, 5.5576e+04, 5.4354e+04,
+        3.6636e+04, 3.9319e+04, 5.7110e+04, 5.5198e+04, 3.6805e+04, 3.2757e+04,
+        6.5504e+04, 4.9646e+04, 6.4723e+04, 5.3164e+04, 6.5504e+04, 3.6013e+04,
+        4.8667e+04, 2.3177e+04, 6.5504e+04, 6.5504e+04, 5.4575e+04, 3.4972e+04,
+        6.5504e+04, 1.9156e+04, 6.5504e+04, 3.8833e+04, 4.5297e+04, 6.5504e+04,
+        6.5504e+04, 4.9572e+04, 5.1807e+04, 6.5504e+04, 6.5504e+04, 4.6574e+04,
+        6.5504e+04, 4.0385e+04, 5.7466e+04, 4.9687e+04, 6.0994e+04, 4.1693e+04,
+        4.4936e+04, 1.3905e+04, 2.4922e+04, 3.8517e+04, 6.5504e+04, 4.8684e+04,
+        5.2253e+04, 6.5504e+04, 3.0264e+04, 6.5504e+04, 6.0796e+04, 5.3594e+04,
+        5.1051e+04, 6.5504e+04, 5.8110e+04, 6.5504e+04, 5.4759e+04, 6.5504e+04,
+        1.9940e+04, 6.5504e+04, 4.2771e+04, 6.5504e+04, 6.5504e+04, 6.5504e+04,
+        1.3543e+04, 3.8255e+04, 5.4806e+04, 4.2846e+04, 3.0618e+04, 3.1272e+04,
+        6.5504e+04, 5.2490e+04, 4.7650e+04, 6.5504e+04, 5.6847e+04, 4.6467e+04,
+        6.3710e+04, 4.5083e+03, 6.5504e+04, 5.5214e+04, 3.0481e+04, 5.5082e+04,
+        6.5504e+04, 6.5504e+04, 5.5493e+04, 2.9932e+04, 4.2959e+04, 4.5561e+04,
+        4.7333e+04, 3.8263e+04, 1.4202e+04, 6.5504e+04, 2.2523e+04, 1.5774e+04,
+        5.3233e+04, 6.5504e+04, 6.5504e+04, 5.8363e+04, 2.5649e+04, 3.3118e+04,
+        6.3343e+04, 4.1488e+04, 3.2457e+04, 1.8137e+04, 4.2384e+04, 3.6861e+04,
+        6.5504e+04, 6.5504e+04, 1.1762e+04, 2.5539e+04, 5.9733e+04, 6.1968e+04,
+        1.8478e+04, 6.5504e+04, 5.5839e+04, 2.6299e+04, 6.2709e+04, 3.6202e+04,
+        2.0739e+04, 6.5504e+04, 6.0102e+04, 6.5386e+04, 3.1534e+04, 6.5504e+04,
+        6.5504e+04, 5.9387e+04, 1.8872e+04, 1.4683e+04, 5.0709e+04, 5.6039e+04,
+        3.6533e+04, 6.5504e+04, 3.2185e+04, 6.5504e+04, 6.5504e+04, 6.0718e+04,
+        4.8977e+04, 4.3522e+04, 5.7301e+04, 4.8837e+04, 6.5504e+04, 2.0532e+04,
+        6.2061e+04, 6.5504e+04, 6.5504e+04, 4.1873e+04, 2.2882e+03, 5.0836e+04,
+        1.6741e+04, 2.4740e+04, 6.5504e+04, 6.5504e+04, 4.3526e+04, 4.7162e+04,
+        1.8958e+04, 2.9737e+04, 5.1484e+04, 4.1375e+04, 6.5504e+04, 2.9014e+04,
+        5.0068e+04, 6.5504e+04, 3.1665e+03, 6.5504e+04, 5.3409e+04, 3.2420e+04,
+        4.1328e+04, 3.5518e+04, 2.8656e+04, 2.6534e+04, 4.2773e+04, 4.6120e+04,
+        6.1386e+04, 3.6205e+01, 6.3025e+04, 3.6967e+04, 3.2851e+04, 6.5504e+04,
+        6.5504e+04, 6.5504e+04, 4.8951e+04, 6.5504e+04, 1.3715e+04, 6.5504e+04,
+        5.8475e+04, 5.6646e+04, 6.5504e+04, 6.0137e+04, 2.6043e+04, 2.9464e+04,
+        6.4519e+04, 6.5504e+04, 4.7097e+04, 3.2018e+04, 5.4801e+04, 6.5504e+04,
+        6.5504e+04, 6.5504e+04, 2.3027e+04, 5.4955e+04], device='cuda:0')
+^^^^^ cnvs.1.bn
+cnvs.1.relu
+[]
+==========================================
+** cnvs.1.relu
+inters.0.conv1
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** inters.0.conv1
+inters.0.bn1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** inters.0.bn1
+inters.0.relu1
+[]
+==========================================
+** inters.0.relu1
+inters.0.conv2
+[('weight', torch.Size([256, 256, 3, 3]))]
+==========================================
+** inters.0.conv2
+inters.0.bn2
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** inters.0.bn2
+inters.0.skip
+[]
+==========================================
+** inters.0.skip
+inters.0.relu
+[]
+==========================================
+** inters.0.relu
+inters_.0.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** inters_.0.0
+inters_.0.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** inters_.0.1
+cnvs_.0.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** cnvs_.0.0
+cnvs_.0.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** cnvs_.0.1
+hm.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm.0.0.conv
+hm.0.0.bn
+[]
+==========================================
+** hm.0.0.bn
+hm.0.0.relu
+[]
+==========================================
+** hm.0.0.relu
+hm.0.1
+[('weight', torch.Size([1, 256, 1, 1])), ('bias', torch.Size([1]))]
+==========================================
+** hm.0.1
+hm.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm.1.0.conv
+hm.1.0.bn
+[]
+==========================================
+** hm.1.0.bn
+hm.1.0.relu
+[]
+==========================================
+** hm.1.0.relu
+hm.1.1
+[('weight', torch.Size([1, 256, 1, 1])), ('bias', torch.Size([1]))]
+==========================================
+** hm.1.1
+wh.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** wh.0.0.conv
+wh.0.0.bn
+[]
+==========================================
+** wh.0.0.bn
+wh.0.0.relu
+[]
+==========================================
+** wh.0.0.relu
+wh.0.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** wh.0.1
+wh.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** wh.1.0.conv
+wh.1.0.bn
+[]
+==========================================
+** wh.1.0.bn
+wh.1.0.relu
+[]
+==========================================
+** wh.1.0.relu
+wh.1.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** wh.1.1
+hps.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hps.0.0.conv
+hps.0.0.bn
+[]
+==========================================
+** hps.0.0.bn
+hps.0.0.relu
+[]
+==========================================
+** hps.0.0.relu
+hps.0.1
+[('weight', torch.Size([34, 256, 1, 1])), ('bias', torch.Size([34]))]
+==========================================
+** hps.0.1
+hps.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hps.1.0.conv
+hps.1.0.bn
+[]
+==========================================
+** hps.1.0.bn
+hps.1.0.relu
+[]
+==========================================
+** hps.1.0.relu
+hps.1.1
+[('weight', torch.Size([34, 256, 1, 1])), ('bias', torch.Size([34]))]
+==========================================
+** hps.1.1
+reg.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** reg.0.0.conv
+reg.0.0.bn
+[]
+==========================================
+** reg.0.0.bn
+reg.0.0.relu
+[]
+==========================================
+** reg.0.0.relu
+reg.0.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** reg.0.1
+reg.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** reg.1.0.conv
+reg.1.0.bn
+[]
+==========================================
+** reg.1.0.bn
+reg.1.0.relu
+[]
+==========================================
+** reg.1.0.relu
+reg.1.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** reg.1.1
+hm_hp.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm_hp.0.0.conv
+hm_hp.0.0.bn
+[]
+==========================================
+** hm_hp.0.0.bn
+hm_hp.0.0.relu
+[]
+==========================================
+** hm_hp.0.0.relu
+hm_hp.0.1
+[('weight', torch.Size([17, 256, 1, 1])), ('bias', torch.Size([17]))]
+==========================================
+** hm_hp.0.1
+hm_hp.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm_hp.1.0.conv
+hm_hp.1.0.bn
+[]
+==========================================
+** hm_hp.1.0.bn
+hm_hp.1.0.relu
+[]
+==========================================
+** hm_hp.1.0.relu
+hm_hp.1.1
+[('weight', torch.Size([17, 256, 1, 1])), ('bias', torch.Size([17]))]
+==========================================
+** hm_hp.1.1
+hp_offset.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hp_offset.0.0.conv
+hp_offset.0.0.bn
+[]
+==========================================
+** hp_offset.0.0.bn
+hp_offset.0.0.relu
+[]
+==========================================
+** hp_offset.0.0.relu
+hp_offset.0.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** hp_offset.0.1
+hp_offset.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hp_offset.1.0.conv
+hp_offset.1.0.bn
+[]
+==========================================
+** hp_offset.1.0.bn
+hp_offset.1.0.relu
+[]
+==========================================
+** hp_offset.1.0.relu
+hp_offset.1.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** hp_offset.1.1
+relu
+[]
+==========================================
+** relu
+Loading and preparing results...
+DONE (t=11.07s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=20.31s).
+Accumulating evaluation results...
+DONE (t=0.76s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.612
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.836
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.671
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.559
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.707
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.684
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.739
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.609
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.788
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=41.99s).
+Accumulating evaluation results...
+DONE (t=6.57s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.378
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.606
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.396
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.069
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.493
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.165
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.408
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.446
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.120
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.566
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.795

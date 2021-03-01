@@ -1,0 +1,4357 @@
+Keep resolution testing.
+training chunk_sizes: [32]
+The output will be saved to  /data/shan/CenterNet/src/lib/../../exp/multi_pose/hg_3x
+heads {'hm': 1, 'wh': 2, 'hps': 34, 'reg': 2, 'hm_hp': 17, 'hp_offset': 2}
+Namespace(K=100, aggr_weight=0.0, agnostic_ex=False, arch='hourglass', aug_ddd=0.5, aug_rot=0, batch_size=32, cat_spec_wh=False, center_thresh=0.1, chunk_sizes=[32], data_dir='/data/shan/CenterNet/src/lib/../../data', dataset='coco_hp', debug=0, debug_dir='/data/shan/CenterNet/src/lib/../../exp/multi_pose/hg_3x/debug', debugger_theme='white', demo='', dense_hp=False, dense_wh=False, dep_weight=1, dim_weight=1, down_ratio=4, eval_oracle_dep=False, eval_oracle_hm=False, eval_oracle_hmhp=False, eval_oracle_hp_offset=False, eval_oracle_kps=False, eval_oracle_offset=False, eval_oracle_wh=False, exp_dir='/data/shan/CenterNet/src/lib/../../exp/multi_pose', exp_id='hg_3x', fix_res=False, flip=0.5, flip_idx=[[1, 2], [3, 4], [5, 6], [7, 8], [9, 10], [11, 12], [13, 14], [15, 16]], flip_test=True, gpus=[0], gpus_str='0', head_conv=64, heads={'hm': 1, 'wh': 2, 'hps': 34, 'reg': 2, 'hm_hp': 17, 'hp_offset': 2}, hide_data_time=False, hm_hp=True, hm_hp_weight=1, hm_weight=1, hp_weight=1, input_h=512, input_res=512, input_w=512, keep_res=True, kitti_split='3dop', load_model='../models/multi_pose_hg_3x.pth', lr=0.000125, lr_step=[90, 120], master_batch_size=32, mean=array([[[0.40789655, 0.44719303, 0.47026116]]], dtype=float32), metric='loss', mse_loss=False, nms=False, no_color_aug=False, norm_wh=False, not_cuda_benchmark=False, not_hm_hp=False, not_prefetch_test=False, not_rand_crop=False, not_reg_bbox=False, not_reg_hp_offset=False, not_reg_offset=False, num_classes=1, num_epochs=140, num_iters=-1, num_stacks=2, num_workers=4, off_weight=1, output_h=128, output_res=128, output_w=128, pad=127, peak_thresh=0.2, print_iter=0, rect_mask=False, reg_bbox=True, reg_hp_offset=True, reg_loss='l1', reg_offset=True, resume=False, root_dir='/data/shan/CenterNet/src/lib/../..', rot_weight=1, rotate=0, save_all=False, save_dir='/data/shan/CenterNet/src/lib/../../exp/multi_pose/hg_3x', scale=0.4, scores_thresh=0.1, seed=317, shift=0.1, std=array([[[0.2886383 , 0.27408165, 0.27809834]]], dtype=float32), task='multi_pose', test=False, test_scales=[1.0], trainval=False, val_intervals=5, vis_thresh=0.3, wh_weight=0.1)
+==> initializing coco 2017 val data.
+loading annotations into memory...
+Done (t=0.28s)
+creating index...
+index created!
+Loaded val 5000 samples
+Creating model...
+loaded ../models/multi_pose_hg_3x.pth, epoch 149
+Before fusion model is HourglassNet(
+  (pre): Sequential(
+    (0): convolution(
+      (conv): Conv2d(3, 128, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+      (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (1): residual(
+      (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu1): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (skip): Sequential(
+        (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (kps): ModuleList(
+    (0): kp_module(
+      (up1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (max1): Sequential()
+      (low1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (low2): kp_module(
+        (up1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (max1): Sequential()
+        (low1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential(
+              (0): Conv2d(256, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (low2): kp_module(
+          (up1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (max1): Sequential()
+          (low1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential(
+                (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (low2): kp_module(
+            (up1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (max1): Sequential()
+            (low1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential(
+                  (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                  (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                )
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (low2): kp_module(
+              (up1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (max1): Sequential()
+              (low1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential(
+                    (0): Conv2d(384, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low2): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (2): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (3): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low3): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential(
+                    (0): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (up2): Upsample(scale_factor=2.0, mode=nearest)
+              (merge): MergeUp()
+            )
+            (low3): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (up2): Upsample(scale_factor=2.0, mode=nearest)
+            (merge): MergeUp()
+          )
+          (low3): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (up2): Upsample(scale_factor=2.0, mode=nearest)
+          (merge): MergeUp()
+        )
+        (low3): Sequential(
+          (0): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential(
+              (0): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (up2): Upsample(scale_factor=2.0, mode=nearest)
+        (merge): MergeUp()
+      )
+      (low3): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (up2): Upsample(scale_factor=2.0, mode=nearest)
+      (merge): MergeUp()
+    )
+    (1): kp_module(
+      (up1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (max1): Sequential()
+      (low1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (low2): kp_module(
+        (up1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (max1): Sequential()
+        (low1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential(
+              (0): Conv2d(256, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (low2): kp_module(
+          (up1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (max1): Sequential()
+          (low1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential(
+                (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (low2): kp_module(
+            (up1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (max1): Sequential()
+            (low1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential(
+                  (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                  (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                )
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (low2): kp_module(
+              (up1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (max1): Sequential()
+              (low1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential(
+                    (0): Conv2d(384, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low2): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (2): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (3): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low3): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                  (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (skip): Sequential(
+                    (0): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (up2): Upsample(scale_factor=2.0, mode=nearest)
+              (merge): MergeUp()
+            )
+            (low3): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+                (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (up2): Upsample(scale_factor=2.0, mode=nearest)
+            (merge): MergeUp()
+          )
+          (low3): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (up2): Upsample(scale_factor=2.0, mode=nearest)
+          (merge): MergeUp()
+        )
+        (low3): Sequential(
+          (0): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (skip): Sequential(
+              (0): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (up2): Upsample(scale_factor=2.0, mode=nearest)
+        (merge): MergeUp()
+      )
+      (low3): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (up2): Upsample(scale_factor=2.0, mode=nearest)
+      (merge): MergeUp()
+    )
+  )
+  (cnvs): ModuleList(
+    (0): convolution(
+      (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (1): convolution(
+      (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (inters): ModuleList(
+    (0): residual(
+      (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu1): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (skip): Sequential()
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (inters_): ModuleList(
+    (0): Sequential(
+      (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (cnvs_): ModuleList(
+    (0): Sequential(
+      (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (hm): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 1, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 1, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (wh): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (hps): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 34, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 34, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (reg): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (hm_hp): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 17, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 17, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (hp_offset): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (relu): ReLU(inplace=True)
+)
+hm.0.0.bn hm.0.0.conv
+********************
+Sequential()
+====================
+hm.1.0.bn hm.1.0.conv
+********************
+Sequential()
+====================
+wh.0.0.bn wh.0.0.conv
+********************
+Sequential()
+====================
+wh.1.0.bn wh.1.0.conv
+********************
+Sequential()
+====================
+hps.0.0.bn hps.0.0.conv
+********************
+Sequential()
+====================
+hps.1.0.bn hps.1.0.conv
+********************
+Sequential()
+====================
+reg.0.0.bn reg.0.0.conv
+********************
+Sequential()
+====================
+reg.1.0.bn reg.1.0.conv
+********************
+Sequential()
+====================
+hm_hp.0.0.bn hm_hp.0.0.conv
+********************
+Sequential()
+====================
+hm_hp.1.0.bn hm_hp.1.0.conv
+********************
+Sequential()
+====================
+hp_offset.0.0.bn hp_offset.0.0.conv
+********************
+Sequential()
+====================
+hp_offset.1.0.bn hp_offset.1.0.conv
+********************
+Sequential()
+====================
+fusion list is  [['pre.0.conv', 'pre.0.bn'], ['pre.1.conv1', 'pre.1.bn1'], ['pre.1.conv2', 'pre.1.bn2'], ['kps.0.up1.0.conv1', 'kps.0.up1.0.bn1'], ['kps.0.up1.0.conv2', 'kps.0.up1.0.bn2'], ['kps.0.up1.1.conv1', 'kps.0.up1.1.bn1'], ['kps.0.up1.1.conv2', 'kps.0.up1.1.bn2'], ['kps.0.low1.0.conv1', 'kps.0.low1.0.bn1'], ['kps.0.low1.0.conv2', 'kps.0.low1.0.bn2'], ['kps.0.low1.1.conv1', 'kps.0.low1.1.bn1'], ['kps.0.low1.1.conv2', 'kps.0.low1.1.bn2'], ['kps.0.low2.up1.0.conv1', 'kps.0.low2.up1.0.bn1'], ['kps.0.low2.up1.0.conv2', 'kps.0.low2.up1.0.bn2'], ['kps.0.low2.up1.1.conv1', 'kps.0.low2.up1.1.bn1'], ['kps.0.low2.up1.1.conv2', 'kps.0.low2.up1.1.bn2'], ['kps.0.low2.low1.0.conv1', 'kps.0.low2.low1.0.bn1'], ['kps.0.low2.low1.0.conv2', 'kps.0.low2.low1.0.bn2'], ['kps.0.low2.low1.1.conv1', 'kps.0.low2.low1.1.bn1'], ['kps.0.low2.low1.1.conv2', 'kps.0.low2.low1.1.bn2'], ['kps.0.low2.low2.up1.0.conv1', 'kps.0.low2.low2.up1.0.bn1'], ['kps.0.low2.low2.up1.0.conv2', 'kps.0.low2.low2.up1.0.bn2'], ['kps.0.low2.low2.up1.1.conv1', 'kps.0.low2.low2.up1.1.bn1'], ['kps.0.low2.low2.up1.1.conv2', 'kps.0.low2.low2.up1.1.bn2'], ['kps.0.low2.low2.low1.0.conv1', 'kps.0.low2.low2.low1.0.bn1'], ['kps.0.low2.low2.low1.0.conv2', 'kps.0.low2.low2.low1.0.bn2'], ['kps.0.low2.low2.low1.1.conv1', 'kps.0.low2.low2.low1.1.bn1'], ['kps.0.low2.low2.low1.1.conv2', 'kps.0.low2.low2.low1.1.bn2'], ['kps.0.low2.low2.low2.up1.0.conv1', 'kps.0.low2.low2.low2.up1.0.bn1'], ['kps.0.low2.low2.low2.up1.0.conv2', 'kps.0.low2.low2.low2.up1.0.bn2'], ['kps.0.low2.low2.low2.up1.1.conv1', 'kps.0.low2.low2.low2.up1.1.bn1'], ['kps.0.low2.low2.low2.up1.1.conv2', 'kps.0.low2.low2.low2.up1.1.bn2'], ['kps.0.low2.low2.low2.low1.0.conv1', 'kps.0.low2.low2.low2.low1.0.bn1'], ['kps.0.low2.low2.low2.low1.0.conv2', 'kps.0.low2.low2.low2.low1.0.bn2'], ['kps.0.low2.low2.low2.low1.1.conv1', 'kps.0.low2.low2.low2.low1.1.bn1'], ['kps.0.low2.low2.low2.low1.1.conv2', 'kps.0.low2.low2.low2.low1.1.bn2'], ['kps.0.low2.low2.low2.low2.up1.0.conv1', 'kps.0.low2.low2.low2.low2.up1.0.bn1'], ['kps.0.low2.low2.low2.low2.up1.0.conv2', 'kps.0.low2.low2.low2.low2.up1.0.bn2'], ['kps.0.low2.low2.low2.low2.up1.1.conv1', 'kps.0.low2.low2.low2.low2.up1.1.bn1'], ['kps.0.low2.low2.low2.low2.up1.1.conv2', 'kps.0.low2.low2.low2.low2.up1.1.bn2'], ['kps.0.low2.low2.low2.low2.low1.0.conv1', 'kps.0.low2.low2.low2.low2.low1.0.bn1'], ['kps.0.low2.low2.low2.low2.low1.0.conv2', 'kps.0.low2.low2.low2.low2.low1.0.bn2'], ['kps.0.low2.low2.low2.low2.low1.1.conv1', 'kps.0.low2.low2.low2.low2.low1.1.bn1'], ['kps.0.low2.low2.low2.low2.low1.1.conv2', 'kps.0.low2.low2.low2.low2.low1.1.bn2'], ['kps.0.low2.low2.low2.low2.low2.0.conv1', 'kps.0.low2.low2.low2.low2.low2.0.bn1'], ['kps.0.low2.low2.low2.low2.low2.0.conv2', 'kps.0.low2.low2.low2.low2.low2.0.bn2'], ['kps.0.low2.low2.low2.low2.low2.1.conv1', 'kps.0.low2.low2.low2.low2.low2.1.bn1'], ['kps.0.low2.low2.low2.low2.low2.1.conv2', 'kps.0.low2.low2.low2.low2.low2.1.bn2'], ['kps.0.low2.low2.low2.low2.low2.2.conv1', 'kps.0.low2.low2.low2.low2.low2.2.bn1'], ['kps.0.low2.low2.low2.low2.low2.2.conv2', 'kps.0.low2.low2.low2.low2.low2.2.bn2'], ['kps.0.low2.low2.low2.low2.low2.3.conv1', 'kps.0.low2.low2.low2.low2.low2.3.bn1'], ['kps.0.low2.low2.low2.low2.low2.3.conv2', 'kps.0.low2.low2.low2.low2.low2.3.bn2'], ['kps.0.low2.low2.low2.low2.low3.0.conv1', 'kps.0.low2.low2.low2.low2.low3.0.bn1'], ['kps.0.low2.low2.low2.low2.low3.0.conv2', 'kps.0.low2.low2.low2.low2.low3.0.bn2'], ['kps.0.low2.low2.low2.low2.low3.1.conv1', 'kps.0.low2.low2.low2.low2.low3.1.bn1'], ['kps.0.low2.low2.low2.low2.low3.1.conv2', 'kps.0.low2.low2.low2.low2.low3.1.bn2'], ['kps.0.low2.low2.low2.low3.0.conv1', 'kps.0.low2.low2.low2.low3.0.bn1'], ['kps.0.low2.low2.low2.low3.0.conv2', 'kps.0.low2.low2.low2.low3.0.bn2'], ['kps.0.low2.low2.low2.low3.1.conv1', 'kps.0.low2.low2.low2.low3.1.bn1'], ['kps.0.low2.low2.low2.low3.1.conv2', 'kps.0.low2.low2.low2.low3.1.bn2'], ['kps.0.low2.low2.low3.0.conv1', 'kps.0.low2.low2.low3.0.bn1'], ['kps.0.low2.low2.low3.0.conv2', 'kps.0.low2.low2.low3.0.bn2'], ['kps.0.low2.low2.low3.1.conv1', 'kps.0.low2.low2.low3.1.bn1'], ['kps.0.low2.low2.low3.1.conv2', 'kps.0.low2.low2.low3.1.bn2'], ['kps.0.low2.low3.0.conv1', 'kps.0.low2.low3.0.bn1'], ['kps.0.low2.low3.0.conv2', 'kps.0.low2.low3.0.bn2'], ['kps.0.low2.low3.1.conv1', 'kps.0.low2.low3.1.bn1'], ['kps.0.low2.low3.1.conv2', 'kps.0.low2.low3.1.bn2'], ['kps.0.low3.0.conv1', 'kps.0.low3.0.bn1'], ['kps.0.low3.0.conv2', 'kps.0.low3.0.bn2'], ['kps.0.low3.1.conv1', 'kps.0.low3.1.bn1'], ['kps.0.low3.1.conv2', 'kps.0.low3.1.bn2'], ['kps.1.up1.0.conv1', 'kps.1.up1.0.bn1'], ['kps.1.up1.0.conv2', 'kps.1.up1.0.bn2'], ['kps.1.up1.1.conv1', 'kps.1.up1.1.bn1'], ['kps.1.up1.1.conv2', 'kps.1.up1.1.bn2'], ['kps.1.low1.0.conv1', 'kps.1.low1.0.bn1'], ['kps.1.low1.0.conv2', 'kps.1.low1.0.bn2'], ['kps.1.low1.1.conv1', 'kps.1.low1.1.bn1'], ['kps.1.low1.1.conv2', 'kps.1.low1.1.bn2'], ['kps.1.low2.up1.0.conv1', 'kps.1.low2.up1.0.bn1'], ['kps.1.low2.up1.0.conv2', 'kps.1.low2.up1.0.bn2'], ['kps.1.low2.up1.1.conv1', 'kps.1.low2.up1.1.bn1'], ['kps.1.low2.up1.1.conv2', 'kps.1.low2.up1.1.bn2'], ['kps.1.low2.low1.0.conv1', 'kps.1.low2.low1.0.bn1'], ['kps.1.low2.low1.0.conv2', 'kps.1.low2.low1.0.bn2'], ['kps.1.low2.low1.1.conv1', 'kps.1.low2.low1.1.bn1'], ['kps.1.low2.low1.1.conv2', 'kps.1.low2.low1.1.bn2'], ['kps.1.low2.low2.up1.0.conv1', 'kps.1.low2.low2.up1.0.bn1'], ['kps.1.low2.low2.up1.0.conv2', 'kps.1.low2.low2.up1.0.bn2'], ['kps.1.low2.low2.up1.1.conv1', 'kps.1.low2.low2.up1.1.bn1'], ['kps.1.low2.low2.up1.1.conv2', 'kps.1.low2.low2.up1.1.bn2'], ['kps.1.low2.low2.low1.0.conv1', 'kps.1.low2.low2.low1.0.bn1'], ['kps.1.low2.low2.low1.0.conv2', 'kps.1.low2.low2.low1.0.bn2'], ['kps.1.low2.low2.low1.1.conv1', 'kps.1.low2.low2.low1.1.bn1'], ['kps.1.low2.low2.low1.1.conv2', 'kps.1.low2.low2.low1.1.bn2'], ['kps.1.low2.low2.low2.up1.0.conv1', 'kps.1.low2.low2.low2.up1.0.bn1'], ['kps.1.low2.low2.low2.up1.0.conv2', 'kps.1.low2.low2.low2.up1.0.bn2'], ['kps.1.low2.low2.low2.up1.1.conv1', 'kps.1.low2.low2.low2.up1.1.bn1'], ['kps.1.low2.low2.low2.up1.1.conv2', 'kps.1.low2.low2.low2.up1.1.bn2'], ['kps.1.low2.low2.low2.low1.0.conv1', 'kps.1.low2.low2.low2.low1.0.bn1'], ['kps.1.low2.low2.low2.low1.0.conv2', 'kps.1.low2.low2.low2.low1.0.bn2'], ['kps.1.low2.low2.low2.low1.1.conv1', 'kps.1.low2.low2.low2.low1.1.bn1'], ['kps.1.low2.low2.low2.low1.1.conv2', 'kps.1.low2.low2.low2.low1.1.bn2'], ['kps.1.low2.low2.low2.low2.up1.0.conv1', 'kps.1.low2.low2.low2.low2.up1.0.bn1'], ['kps.1.low2.low2.low2.low2.up1.0.conv2', 'kps.1.low2.low2.low2.low2.up1.0.bn2'], ['kps.1.low2.low2.low2.low2.up1.1.conv1', 'kps.1.low2.low2.low2.low2.up1.1.bn1'], ['kps.1.low2.low2.low2.low2.up1.1.conv2', 'kps.1.low2.low2.low2.low2.up1.1.bn2'], ['kps.1.low2.low2.low2.low2.low1.0.conv1', 'kps.1.low2.low2.low2.low2.low1.0.bn1'], ['kps.1.low2.low2.low2.low2.low1.0.conv2', 'kps.1.low2.low2.low2.low2.low1.0.bn2'], ['kps.1.low2.low2.low2.low2.low1.1.conv1', 'kps.1.low2.low2.low2.low2.low1.1.bn1'], ['kps.1.low2.low2.low2.low2.low1.1.conv2', 'kps.1.low2.low2.low2.low2.low1.1.bn2'], ['kps.1.low2.low2.low2.low2.low2.0.conv1', 'kps.1.low2.low2.low2.low2.low2.0.bn1'], ['kps.1.low2.low2.low2.low2.low2.0.conv2', 'kps.1.low2.low2.low2.low2.low2.0.bn2'], ['kps.1.low2.low2.low2.low2.low2.1.conv1', 'kps.1.low2.low2.low2.low2.low2.1.bn1'], ['kps.1.low2.low2.low2.low2.low2.1.conv2', 'kps.1.low2.low2.low2.low2.low2.1.bn2'], ['kps.1.low2.low2.low2.low2.low2.2.conv1', 'kps.1.low2.low2.low2.low2.low2.2.bn1'], ['kps.1.low2.low2.low2.low2.low2.2.conv2', 'kps.1.low2.low2.low2.low2.low2.2.bn2'], ['kps.1.low2.low2.low2.low2.low2.3.conv1', 'kps.1.low2.low2.low2.low2.low2.3.bn1'], ['kps.1.low2.low2.low2.low2.low2.3.conv2', 'kps.1.low2.low2.low2.low2.low2.3.bn2'], ['kps.1.low2.low2.low2.low2.low3.0.conv1', 'kps.1.low2.low2.low2.low2.low3.0.bn1'], ['kps.1.low2.low2.low2.low2.low3.0.conv2', 'kps.1.low2.low2.low2.low2.low3.0.bn2'], ['kps.1.low2.low2.low2.low2.low3.1.conv1', 'kps.1.low2.low2.low2.low2.low3.1.bn1'], ['kps.1.low2.low2.low2.low2.low3.1.conv2', 'kps.1.low2.low2.low2.low2.low3.1.bn2'], ['kps.1.low2.low2.low2.low3.0.conv1', 'kps.1.low2.low2.low2.low3.0.bn1'], ['kps.1.low2.low2.low2.low3.0.conv2', 'kps.1.low2.low2.low2.low3.0.bn2'], ['kps.1.low2.low2.low2.low3.1.conv1', 'kps.1.low2.low2.low2.low3.1.bn1'], ['kps.1.low2.low2.low2.low3.1.conv2', 'kps.1.low2.low2.low2.low3.1.bn2'], ['kps.1.low2.low2.low3.0.conv1', 'kps.1.low2.low2.low3.0.bn1'], ['kps.1.low2.low2.low3.0.conv2', 'kps.1.low2.low2.low3.0.bn2'], ['kps.1.low2.low2.low3.1.conv1', 'kps.1.low2.low2.low3.1.bn1'], ['kps.1.low2.low2.low3.1.conv2', 'kps.1.low2.low2.low3.1.bn2'], ['kps.1.low2.low3.0.conv1', 'kps.1.low2.low3.0.bn1'], ['kps.1.low2.low3.0.conv2', 'kps.1.low2.low3.0.bn2'], ['kps.1.low2.low3.1.conv1', 'kps.1.low2.low3.1.bn1'], ['kps.1.low2.low3.1.conv2', 'kps.1.low2.low3.1.bn2'], ['kps.1.low3.0.conv1', 'kps.1.low3.0.bn1'], ['kps.1.low3.0.conv2', 'kps.1.low3.0.bn2'], ['kps.1.low3.1.conv1', 'kps.1.low3.1.bn1'], ['kps.1.low3.1.conv2', 'kps.1.low3.1.bn2'], ['cnvs.0.conv', 'cnvs.0.bn'], ['cnvs.1.conv', 'cnvs.1.bn'], ['inters.0.conv1', 'inters.0.bn1'], ['inters.0.conv2', 'inters.0.bn2']]
+MODEL is HourglassNet(
+  (pre): Sequential(
+    (0): convolution(
+      (conv): Conv2d(3, 128, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3))
+      (bn): Identity()
+      (relu): ReLU(inplace=True)
+    )
+    (1): residual(
+      (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      (bn1): Identity()
+      (relu1): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn2): Identity()
+      (skip): Sequential(
+        (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (kps): ModuleList(
+    (0): kp_module(
+      (up1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (max1): Sequential()
+      (low1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (low2): kp_module(
+        (up1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (max1): Sequential()
+        (low1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential(
+              (0): Conv2d(256, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (low2): kp_module(
+          (up1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (max1): Sequential()
+          (low1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential(
+                (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (low2): kp_module(
+            (up1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (max1): Sequential()
+            (low1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential(
+                  (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                  (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                )
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (low2): kp_module(
+              (up1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (max1): Sequential()
+              (low1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential(
+                    (0): Conv2d(384, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low2): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (2): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (3): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low3): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential(
+                    (0): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (up2): Upsample(scale_factor=2.0, mode=nearest)
+              (merge): MergeUp()
+            )
+            (low3): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (up2): Upsample(scale_factor=2.0, mode=nearest)
+            (merge): MergeUp()
+          )
+          (low3): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (up2): Upsample(scale_factor=2.0, mode=nearest)
+          (merge): MergeUp()
+        )
+        (low3): Sequential(
+          (0): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential(
+              (0): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (up2): Upsample(scale_factor=2.0, mode=nearest)
+        (merge): MergeUp()
+      )
+      (low3): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (up2): Upsample(scale_factor=2.0, mode=nearest)
+      (merge): MergeUp()
+    )
+    (1): kp_module(
+      (up1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (max1): Sequential()
+      (low1): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (low2): kp_module(
+        (up1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (max1): Sequential()
+        (low1): Sequential(
+          (0): residual(
+            (conv1): Conv2d(256, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential(
+              (0): Conv2d(256, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (low2): kp_module(
+          (up1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (max1): Sequential()
+          (low1): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential(
+                (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (low2): kp_module(
+            (up1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (max1): Sequential()
+            (low1): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential(
+                  (0): Conv2d(384, 384, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                  (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                )
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (low2): kp_module(
+              (up1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (max1): Sequential()
+              (low1): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(384, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential(
+                    (0): Conv2d(384, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+                    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low2): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (2): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (3): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (low3): Sequential(
+                (0): residual(
+                  (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential()
+                  (relu): ReLU(inplace=True)
+                )
+                (1): residual(
+                  (conv1): Conv2d(512, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn1): Identity()
+                  (relu1): ReLU(inplace=True)
+                  (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                  (bn2): Identity()
+                  (skip): Sequential(
+                    (0): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                    (1): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  )
+                  (relu): ReLU(inplace=True)
+                )
+              )
+              (up2): Upsample(scale_factor=2.0, mode=nearest)
+              (merge): MergeUp()
+            )
+            (low3): Sequential(
+              (0): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+              (1): residual(
+                (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn1): Identity()
+                (relu1): ReLU(inplace=True)
+                (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+                (bn2): Identity()
+                (skip): Sequential()
+                (relu): ReLU(inplace=True)
+              )
+            )
+            (up2): Upsample(scale_factor=2.0, mode=nearest)
+            (merge): MergeUp()
+          )
+          (low3): Sequential(
+            (0): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+            (1): residual(
+              (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn1): Identity()
+              (relu1): ReLU(inplace=True)
+              (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (bn2): Identity()
+              (skip): Sequential()
+              (relu): ReLU(inplace=True)
+            )
+          )
+          (up2): Upsample(scale_factor=2.0, mode=nearest)
+          (merge): MergeUp()
+        )
+        (low3): Sequential(
+          (0): residual(
+            (conv1): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential()
+            (relu): ReLU(inplace=True)
+          )
+          (1): residual(
+            (conv1): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn1): Identity()
+            (relu1): ReLU(inplace=True)
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn2): Identity()
+            (skip): Sequential(
+              (0): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+            (relu): ReLU(inplace=True)
+          )
+        )
+        (up2): Upsample(scale_factor=2.0, mode=nearest)
+        (merge): MergeUp()
+      )
+      (low3): Sequential(
+        (0): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+        (1): residual(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn1): Identity()
+          (relu1): ReLU(inplace=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (bn2): Identity()
+          (skip): Sequential()
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (up2): Upsample(scale_factor=2.0, mode=nearest)
+      (merge): MergeUp()
+    )
+  )
+  (cnvs): ModuleList(
+    (0): convolution(
+      (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn): Identity()
+      (relu): ReLU(inplace=True)
+    )
+    (1): convolution(
+      (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn): Identity()
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (inters): ModuleList(
+    (0): residual(
+      (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn1): Identity()
+      (relu1): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (bn2): Identity()
+      (skip): Sequential()
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (inters_): ModuleList(
+    (0): Sequential(
+      (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (cnvs_): ModuleList(
+    (0): Sequential(
+      (0): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (hm): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 1, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 1, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (wh): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (hps): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 34, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 34, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (reg): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (hm_hp): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 17, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 17, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (hp_offset): ModuleList(
+    (0): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (1): Sequential(
+      (0): convolution(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): Sequential()
+        (relu): ReLU(inplace=True)
+      )
+      (1): Conv2d(256, 2, kernel_size=(1, 1), stride=(1, 1))
+    )
+  )
+  (relu): ReLU(inplace=True)
+)
+ATTENTION!!!
+pre.0.conv
+[('weight', torch.Size([128, 3, 7, 7])), ('bias', torch.Size([128]))]
+==========================================
+** pre.0.conv
+pre.0.bn
+[]
+==========================================
+** pre.0.bn
+pre.0.relu
+[]
+==========================================
+** pre.0.relu
+pre.1.conv1
+[('weight', torch.Size([256, 128, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** pre.1.conv1
+pre.1.bn1
+[]
+==========================================
+** pre.1.bn1
+pre.1.relu1
+[]
+==========================================
+** pre.1.relu1
+pre.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** pre.1.conv2
+pre.1.bn2
+[]
+==========================================
+** pre.1.bn2
+pre.1.skip.0
+[('weight', torch.Size([256, 128, 1, 1]))]
+==========================================
+** pre.1.skip.0
+pre.1.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** pre.1.skip.1
+pre.1.relu
+[]
+==========================================
+** pre.1.relu
+kps.0.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.0.conv1
+kps.0.up1.0.bn1
+[]
+==========================================
+** kps.0.up1.0.bn1
+kps.0.up1.0.relu1
+[]
+==========================================
+** kps.0.up1.0.relu1
+kps.0.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.0.conv2
+kps.0.up1.0.bn2
+[]
+==========================================
+** kps.0.up1.0.bn2
+kps.0.up1.0.skip
+[]
+==========================================
+** kps.0.up1.0.skip
+kps.0.up1.0.relu
+[]
+==========================================
+** kps.0.up1.0.relu
+kps.0.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.1.conv1
+kps.0.up1.1.bn1
+[]
+==========================================
+** kps.0.up1.1.bn1
+kps.0.up1.1.relu1
+[]
+==========================================
+** kps.0.up1.1.relu1
+kps.0.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.up1.1.conv2
+kps.0.up1.1.bn2
+[]
+==========================================
+** kps.0.up1.1.bn2
+kps.0.up1.1.skip
+[]
+==========================================
+** kps.0.up1.1.skip
+kps.0.up1.1.relu
+[]
+==========================================
+** kps.0.up1.1.relu
+kps.0.max1
+[]
+==========================================
+** kps.0.max1
+kps.0.low1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.0.conv1
+kps.0.low1.0.bn1
+[]
+==========================================
+** kps.0.low1.0.bn1
+kps.0.low1.0.relu1
+[]
+==========================================
+** kps.0.low1.0.relu1
+kps.0.low1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.0.conv2
+kps.0.low1.0.bn2
+[]
+==========================================
+** kps.0.low1.0.bn2
+kps.0.low1.0.skip.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** kps.0.low1.0.skip.0
+kps.0.low1.0.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.0.skip.1
+kps.0.low1.0.relu
+[]
+==========================================
+** kps.0.low1.0.relu
+kps.0.low1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.1.conv1
+kps.0.low1.1.bn1
+[]
+==========================================
+** kps.0.low1.1.bn1
+kps.0.low1.1.relu1
+[]
+==========================================
+** kps.0.low1.1.relu1
+kps.0.low1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low1.1.conv2
+kps.0.low1.1.bn2
+[]
+==========================================
+** kps.0.low1.1.bn2
+kps.0.low1.1.skip
+[]
+==========================================
+** kps.0.low1.1.skip
+kps.0.low1.1.relu
+[]
+==========================================
+** kps.0.low1.1.relu
+kps.0.low2.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.0.conv1
+kps.0.low2.up1.0.bn1
+[]
+==========================================
+** kps.0.low2.up1.0.bn1
+kps.0.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.up1.0.relu1
+kps.0.low2.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.0.conv2
+kps.0.low2.up1.0.bn2
+[]
+==========================================
+** kps.0.low2.up1.0.bn2
+kps.0.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.up1.0.skip
+kps.0.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.up1.0.relu
+kps.0.low2.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.1.conv1
+kps.0.low2.up1.1.bn1
+[]
+==========================================
+** kps.0.low2.up1.1.bn1
+kps.0.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.up1.1.relu1
+kps.0.low2.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.up1.1.conv2
+kps.0.low2.up1.1.bn2
+[]
+==========================================
+** kps.0.low2.up1.1.bn2
+kps.0.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.up1.1.skip
+kps.0.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.up1.1.relu
+kps.0.low2.max1
+[]
+==========================================
+** kps.0.low2.max1
+kps.0.low2.low1.0.conv1
+[('weight', torch.Size([384, 256, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.0.conv1
+kps.0.low2.low1.0.bn1
+[]
+==========================================
+** kps.0.low2.low1.0.bn1
+kps.0.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low1.0.relu1
+kps.0.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.0.conv2
+kps.0.low2.low1.0.bn2
+[]
+==========================================
+** kps.0.low2.low1.0.bn2
+kps.0.low2.low1.0.skip.0
+[('weight', torch.Size([384, 256, 1, 1]))]
+==========================================
+** kps.0.low2.low1.0.skip.0
+kps.0.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.0.skip.1
+kps.0.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low1.0.relu
+kps.0.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.1.conv1
+kps.0.low2.low1.1.bn1
+[]
+==========================================
+** kps.0.low2.low1.1.bn1
+kps.0.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low1.1.relu1
+kps.0.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low1.1.conv2
+kps.0.low2.low1.1.bn2
+[]
+==========================================
+** kps.0.low2.low1.1.bn2
+kps.0.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low1.1.skip
+kps.0.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low1.1.relu
+kps.0.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.0.conv1
+kps.0.low2.low2.up1.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.up1.0.bn1
+kps.0.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.up1.0.relu1
+kps.0.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.0.conv2
+kps.0.low2.low2.up1.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.up1.0.bn2
+kps.0.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.low2.up1.0.skip
+kps.0.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.up1.0.relu
+kps.0.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.1.conv1
+kps.0.low2.low2.up1.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.up1.1.bn1
+kps.0.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.up1.1.relu1
+kps.0.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.up1.1.conv2
+kps.0.low2.low2.up1.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.up1.1.bn2
+kps.0.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.up1.1.skip
+kps.0.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.up1.1.relu
+kps.0.low2.low2.max1
+[]
+==========================================
+** kps.0.low2.low2.max1
+kps.0.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.0.conv1
+kps.0.low2.low2.low1.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low1.0.bn1
+kps.0.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low1.0.relu1
+kps.0.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.0.conv2
+kps.0.low2.low2.low1.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low1.0.bn2
+kps.0.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low1.0.skip.0
+kps.0.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.0.skip.1
+kps.0.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low1.0.relu
+kps.0.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.1.conv1
+kps.0.low2.low2.low1.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low1.1.bn1
+kps.0.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low1.1.relu1
+kps.0.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low1.1.conv2
+kps.0.low2.low2.low1.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low1.1.bn2
+kps.0.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low1.1.skip
+kps.0.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low1.1.relu
+kps.0.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.0.conv1
+kps.0.low2.low2.low2.up1.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.bn1
+kps.0.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.relu1
+kps.0.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.0.conv2
+kps.0.low2.low2.low2.up1.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.bn2
+kps.0.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.skip
+kps.0.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.0.relu
+kps.0.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.1.conv1
+kps.0.low2.low2.low2.up1.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.bn1
+kps.0.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.relu1
+kps.0.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.up1.1.conv2
+kps.0.low2.low2.low2.up1.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.bn2
+kps.0.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.skip
+kps.0.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.up1.1.relu
+kps.0.low2.low2.low2.max1
+[]
+==========================================
+** kps.0.low2.low2.low2.max1
+kps.0.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.conv1
+kps.0.low2.low2.low2.low1.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.0.bn1
+kps.0.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.0.relu1
+kps.0.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.conv2
+kps.0.low2.low2.low2.low1.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.0.bn2
+kps.0.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.skip.0
+kps.0.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.0.skip.1
+kps.0.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.0.relu
+kps.0.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.1.conv1
+kps.0.low2.low2.low2.low1.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.bn1
+kps.0.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.relu1
+kps.0.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low1.1.conv2
+kps.0.low2.low2.low2.low1.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.bn2
+kps.0.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.skip
+kps.0.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low1.1.relu
+kps.0.low2.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.conv1
+kps.0.low2.low2.low2.low2.up1.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.bn1
+kps.0.low2.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.relu1
+kps.0.low2.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.conv2
+kps.0.low2.low2.low2.low2.up1.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.bn2
+kps.0.low2.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.skip
+kps.0.low2.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.0.relu
+kps.0.low2.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.conv1
+kps.0.low2.low2.low2.low2.up1.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.bn1
+kps.0.low2.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.relu1
+kps.0.low2.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.conv2
+kps.0.low2.low2.low2.low2.up1.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.bn2
+kps.0.low2.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.skip
+kps.0.low2.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up1.1.relu
+kps.0.low2.low2.low2.low2.max1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.max1
+kps.0.low2.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([512, 384, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.conv1
+kps.0.low2.low2.low2.low2.low1.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.bn1
+kps.0.low2.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.relu1
+kps.0.low2.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.conv2
+kps.0.low2.low2.low2.low2.low1.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.bn2
+kps.0.low2.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([512, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.skip.0
+kps.0.low2.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.skip.1
+kps.0.low2.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.0.relu
+kps.0.low2.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.conv1
+kps.0.low2.low2.low2.low2.low1.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.bn1
+kps.0.low2.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.relu1
+kps.0.low2.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.conv2
+kps.0.low2.low2.low2.low2.low1.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.bn2
+kps.0.low2.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.skip
+kps.0.low2.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low1.1.relu
+kps.0.low2.low2.low2.low2.low2.0.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.conv1
+kps.0.low2.low2.low2.low2.low2.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.bn1
+kps.0.low2.low2.low2.low2.low2.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.relu1
+kps.0.low2.low2.low2.low2.low2.0.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.conv2
+kps.0.low2.low2.low2.low2.low2.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.bn2
+kps.0.low2.low2.low2.low2.low2.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.skip
+kps.0.low2.low2.low2.low2.low2.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.0.relu
+kps.0.low2.low2.low2.low2.low2.1.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.conv1
+kps.0.low2.low2.low2.low2.low2.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.bn1
+kps.0.low2.low2.low2.low2.low2.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.relu1
+kps.0.low2.low2.low2.low2.low2.1.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.conv2
+kps.0.low2.low2.low2.low2.low2.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.bn2
+kps.0.low2.low2.low2.low2.low2.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.skip
+kps.0.low2.low2.low2.low2.low2.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.1.relu
+kps.0.low2.low2.low2.low2.low2.2.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.conv1
+kps.0.low2.low2.low2.low2.low2.2.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.bn1
+kps.0.low2.low2.low2.low2.low2.2.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.relu1
+kps.0.low2.low2.low2.low2.low2.2.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.conv2
+kps.0.low2.low2.low2.low2.low2.2.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.bn2
+kps.0.low2.low2.low2.low2.low2.2.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.skip
+kps.0.low2.low2.low2.low2.low2.2.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.2.relu
+kps.0.low2.low2.low2.low2.low2.3.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.conv1
+kps.0.low2.low2.low2.low2.low2.3.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.bn1
+kps.0.low2.low2.low2.low2.low2.3.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.relu1
+kps.0.low2.low2.low2.low2.low2.3.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.conv2
+kps.0.low2.low2.low2.low2.low2.3.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.bn2
+kps.0.low2.low2.low2.low2.low2.3.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.skip
+kps.0.low2.low2.low2.low2.low2.3.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low2.3.relu
+kps.0.low2.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.conv1
+kps.0.low2.low2.low2.low2.low3.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.bn1
+kps.0.low2.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.relu1
+kps.0.low2.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.conv2
+kps.0.low2.low2.low2.low2.low3.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.bn2
+kps.0.low2.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.skip
+kps.0.low2.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.0.relu
+kps.0.low2.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 512, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.conv1
+kps.0.low2.low2.low2.low2.low3.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.bn1
+kps.0.low2.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.relu1
+kps.0.low2.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.conv2
+kps.0.low2.low2.low2.low2.low3.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.bn2
+kps.0.low2.low2.low2.low2.low3.1.skip.0
+[('weight', torch.Size([384, 512, 1, 1]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.skip.0
+kps.0.low2.low2.low2.low2.low3.1.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.skip.1
+kps.0.low2.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.low3.1.relu
+kps.0.low2.low2.low2.low2.up2
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.up2
+kps.0.low2.low2.low2.low2.merge
+[]
+==========================================
+** kps.0.low2.low2.low2.low2.merge
+kps.0.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.0.conv1
+kps.0.low2.low2.low2.low3.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.bn1
+kps.0.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.relu1
+kps.0.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.0.conv2
+kps.0.low2.low2.low2.low3.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.bn2
+kps.0.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.skip
+kps.0.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.0.relu
+kps.0.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.1.conv1
+kps.0.low2.low2.low2.low3.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.bn1
+kps.0.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.relu1
+kps.0.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low2.low3.1.conv2
+kps.0.low2.low2.low2.low3.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.bn2
+kps.0.low2.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.skip
+kps.0.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low2.low3.1.relu
+kps.0.low2.low2.low2.up2
+[]
+==========================================
+** kps.0.low2.low2.low2.up2
+kps.0.low2.low2.low2.merge
+[]
+==========================================
+** kps.0.low2.low2.low2.merge
+kps.0.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.0.conv1
+kps.0.low2.low2.low3.0.bn1
+[]
+==========================================
+** kps.0.low2.low2.low3.0.bn1
+kps.0.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low2.low3.0.relu1
+kps.0.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.0.conv2
+kps.0.low2.low2.low3.0.bn2
+[]
+==========================================
+** kps.0.low2.low2.low3.0.bn2
+kps.0.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low2.low3.0.skip
+kps.0.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low2.low3.0.relu
+kps.0.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.1.conv1
+kps.0.low2.low2.low3.1.bn1
+[]
+==========================================
+** kps.0.low2.low2.low3.1.bn1
+kps.0.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low2.low3.1.relu1
+kps.0.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low2.low3.1.conv2
+kps.0.low2.low2.low3.1.bn2
+[]
+==========================================
+** kps.0.low2.low2.low3.1.bn2
+kps.0.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.0.low2.low2.low3.1.skip
+kps.0.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low2.low3.1.relu
+kps.0.low2.low2.up2
+[]
+==========================================
+** kps.0.low2.low2.up2
+kps.0.low2.low2.merge
+[]
+==========================================
+** kps.0.low2.low2.merge
+kps.0.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low3.0.conv1
+kps.0.low2.low3.0.bn1
+[]
+==========================================
+** kps.0.low2.low3.0.bn1
+kps.0.low2.low3.0.relu1
+[]
+==========================================
+** kps.0.low2.low3.0.relu1
+kps.0.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.0.low2.low3.0.conv2
+kps.0.low2.low3.0.bn2
+[]
+==========================================
+** kps.0.low2.low3.0.bn2
+kps.0.low2.low3.0.skip
+[]
+==========================================
+** kps.0.low2.low3.0.skip
+kps.0.low2.low3.0.relu
+[]
+==========================================
+** kps.0.low2.low3.0.relu
+kps.0.low2.low3.1.conv1
+[('weight', torch.Size([256, 384, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.low3.1.conv1
+kps.0.low2.low3.1.bn1
+[]
+==========================================
+** kps.0.low2.low3.1.bn1
+kps.0.low2.low3.1.relu1
+[]
+==========================================
+** kps.0.low2.low3.1.relu1
+kps.0.low2.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.low3.1.conv2
+kps.0.low2.low3.1.bn2
+[]
+==========================================
+** kps.0.low2.low3.1.bn2
+kps.0.low2.low3.1.skip.0
+[('weight', torch.Size([256, 384, 1, 1]))]
+==========================================
+** kps.0.low2.low3.1.skip.0
+kps.0.low2.low3.1.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low2.low3.1.skip.1
+kps.0.low2.low3.1.relu
+[]
+==========================================
+** kps.0.low2.low3.1.relu
+kps.0.low2.up2
+[]
+==========================================
+** kps.0.low2.up2
+kps.0.low2.merge
+[]
+==========================================
+** kps.0.low2.merge
+kps.0.low3.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.0.conv1
+kps.0.low3.0.bn1
+[]
+==========================================
+** kps.0.low3.0.bn1
+kps.0.low3.0.relu1
+[]
+==========================================
+** kps.0.low3.0.relu1
+kps.0.low3.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.0.conv2
+kps.0.low3.0.bn2
+[]
+==========================================
+** kps.0.low3.0.bn2
+kps.0.low3.0.skip
+[]
+==========================================
+** kps.0.low3.0.skip
+kps.0.low3.0.relu
+[]
+==========================================
+** kps.0.low3.0.relu
+kps.0.low3.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.1.conv1
+kps.0.low3.1.bn1
+[]
+==========================================
+** kps.0.low3.1.bn1
+kps.0.low3.1.relu1
+[]
+==========================================
+** kps.0.low3.1.relu1
+kps.0.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.0.low3.1.conv2
+kps.0.low3.1.bn2
+[]
+==========================================
+** kps.0.low3.1.bn2
+kps.0.low3.1.skip
+[]
+==========================================
+** kps.0.low3.1.skip
+kps.0.low3.1.relu
+[]
+==========================================
+** kps.0.low3.1.relu
+kps.0.up2
+[]
+==========================================
+** kps.0.up2
+kps.0.merge
+[]
+==========================================
+** kps.0.merge
+kps.1.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.0.conv1
+kps.1.up1.0.bn1
+[]
+==========================================
+** kps.1.up1.0.bn1
+kps.1.up1.0.relu1
+[]
+==========================================
+** kps.1.up1.0.relu1
+kps.1.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.0.conv2
+kps.1.up1.0.bn2
+[]
+==========================================
+** kps.1.up1.0.bn2
+kps.1.up1.0.skip
+[]
+==========================================
+** kps.1.up1.0.skip
+kps.1.up1.0.relu
+[]
+==========================================
+** kps.1.up1.0.relu
+kps.1.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.1.conv1
+kps.1.up1.1.bn1
+[]
+==========================================
+** kps.1.up1.1.bn1
+kps.1.up1.1.relu1
+[]
+==========================================
+** kps.1.up1.1.relu1
+kps.1.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.up1.1.conv2
+kps.1.up1.1.bn2
+[]
+==========================================
+** kps.1.up1.1.bn2
+kps.1.up1.1.skip
+[]
+==========================================
+** kps.1.up1.1.skip
+kps.1.up1.1.relu
+[]
+==========================================
+** kps.1.up1.1.relu
+kps.1.max1
+[]
+==========================================
+** kps.1.max1
+kps.1.low1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.0.conv1
+kps.1.low1.0.bn1
+[]
+==========================================
+** kps.1.low1.0.bn1
+kps.1.low1.0.relu1
+[]
+==========================================
+** kps.1.low1.0.relu1
+kps.1.low1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.0.conv2
+kps.1.low1.0.bn2
+[]
+==========================================
+** kps.1.low1.0.bn2
+kps.1.low1.0.skip.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** kps.1.low1.0.skip.0
+kps.1.low1.0.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.0.skip.1
+kps.1.low1.0.relu
+[]
+==========================================
+** kps.1.low1.0.relu
+kps.1.low1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.1.conv1
+kps.1.low1.1.bn1
+[]
+==========================================
+** kps.1.low1.1.bn1
+kps.1.low1.1.relu1
+[]
+==========================================
+** kps.1.low1.1.relu1
+kps.1.low1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low1.1.conv2
+kps.1.low1.1.bn2
+[]
+==========================================
+** kps.1.low1.1.bn2
+kps.1.low1.1.skip
+[]
+==========================================
+** kps.1.low1.1.skip
+kps.1.low1.1.relu
+[]
+==========================================
+** kps.1.low1.1.relu
+kps.1.low2.up1.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.0.conv1
+kps.1.low2.up1.0.bn1
+[]
+==========================================
+** kps.1.low2.up1.0.bn1
+kps.1.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.up1.0.relu1
+kps.1.low2.up1.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.0.conv2
+kps.1.low2.up1.0.bn2
+[]
+==========================================
+** kps.1.low2.up1.0.bn2
+kps.1.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.up1.0.skip
+kps.1.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.up1.0.relu
+kps.1.low2.up1.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.1.conv1
+kps.1.low2.up1.1.bn1
+[]
+==========================================
+** kps.1.low2.up1.1.bn1
+kps.1.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.up1.1.relu1
+kps.1.low2.up1.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.up1.1.conv2
+kps.1.low2.up1.1.bn2
+[]
+==========================================
+** kps.1.low2.up1.1.bn2
+kps.1.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.up1.1.skip
+kps.1.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.up1.1.relu
+kps.1.low2.max1
+[]
+==========================================
+** kps.1.low2.max1
+kps.1.low2.low1.0.conv1
+[('weight', torch.Size([384, 256, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.0.conv1
+kps.1.low2.low1.0.bn1
+[]
+==========================================
+** kps.1.low2.low1.0.bn1
+kps.1.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low1.0.relu1
+kps.1.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.0.conv2
+kps.1.low2.low1.0.bn2
+[]
+==========================================
+** kps.1.low2.low1.0.bn2
+kps.1.low2.low1.0.skip.0
+[('weight', torch.Size([384, 256, 1, 1]))]
+==========================================
+** kps.1.low2.low1.0.skip.0
+kps.1.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.0.skip.1
+kps.1.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low1.0.relu
+kps.1.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.1.conv1
+kps.1.low2.low1.1.bn1
+[]
+==========================================
+** kps.1.low2.low1.1.bn1
+kps.1.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low1.1.relu1
+kps.1.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low1.1.conv2
+kps.1.low2.low1.1.bn2
+[]
+==========================================
+** kps.1.low2.low1.1.bn2
+kps.1.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low1.1.skip
+kps.1.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low1.1.relu
+kps.1.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.0.conv1
+kps.1.low2.low2.up1.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.up1.0.bn1
+kps.1.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.up1.0.relu1
+kps.1.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.0.conv2
+kps.1.low2.low2.up1.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.up1.0.bn2
+kps.1.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.low2.up1.0.skip
+kps.1.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.up1.0.relu
+kps.1.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.1.conv1
+kps.1.low2.low2.up1.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.up1.1.bn1
+kps.1.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.up1.1.relu1
+kps.1.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.up1.1.conv2
+kps.1.low2.low2.up1.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.up1.1.bn2
+kps.1.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.up1.1.skip
+kps.1.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.up1.1.relu
+kps.1.low2.low2.max1
+[]
+==========================================
+** kps.1.low2.low2.max1
+kps.1.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.0.conv1
+kps.1.low2.low2.low1.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low1.0.bn1
+kps.1.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low1.0.relu1
+kps.1.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.0.conv2
+kps.1.low2.low2.low1.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low1.0.bn2
+kps.1.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low1.0.skip.0
+kps.1.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.0.skip.1
+kps.1.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low1.0.relu
+kps.1.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.1.conv1
+kps.1.low2.low2.low1.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low1.1.bn1
+kps.1.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low1.1.relu1
+kps.1.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low1.1.conv2
+kps.1.low2.low2.low1.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low1.1.bn2
+kps.1.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low1.1.skip
+kps.1.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low1.1.relu
+kps.1.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.0.conv1
+kps.1.low2.low2.low2.up1.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.bn1
+kps.1.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.relu1
+kps.1.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.0.conv2
+kps.1.low2.low2.low2.up1.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.bn2
+kps.1.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.skip
+kps.1.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.0.relu
+kps.1.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.1.conv1
+kps.1.low2.low2.low2.up1.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.bn1
+kps.1.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.relu1
+kps.1.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.up1.1.conv2
+kps.1.low2.low2.low2.up1.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.bn2
+kps.1.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.skip
+kps.1.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.up1.1.relu
+kps.1.low2.low2.low2.max1
+[]
+==========================================
+** kps.1.low2.low2.low2.max1
+kps.1.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.conv1
+kps.1.low2.low2.low2.low1.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.0.bn1
+kps.1.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.0.relu1
+kps.1.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.conv2
+kps.1.low2.low2.low2.low1.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.0.bn2
+kps.1.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([384, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.skip.0
+kps.1.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.0.skip.1
+kps.1.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.0.relu
+kps.1.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.1.conv1
+kps.1.low2.low2.low2.low1.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.bn1
+kps.1.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.relu1
+kps.1.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low1.1.conv2
+kps.1.low2.low2.low2.low1.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.bn2
+kps.1.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.skip
+kps.1.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low1.1.relu
+kps.1.low2.low2.low2.low2.up1.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.conv1
+kps.1.low2.low2.low2.low2.up1.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.bn1
+kps.1.low2.low2.low2.low2.up1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.relu1
+kps.1.low2.low2.low2.low2.up1.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.conv2
+kps.1.low2.low2.low2.low2.up1.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.bn2
+kps.1.low2.low2.low2.low2.up1.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.skip
+kps.1.low2.low2.low2.low2.up1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.0.relu
+kps.1.low2.low2.low2.low2.up1.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.conv1
+kps.1.low2.low2.low2.low2.up1.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.bn1
+kps.1.low2.low2.low2.low2.up1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.relu1
+kps.1.low2.low2.low2.low2.up1.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.conv2
+kps.1.low2.low2.low2.low2.up1.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.bn2
+kps.1.low2.low2.low2.low2.up1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.skip
+kps.1.low2.low2.low2.low2.up1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up1.1.relu
+kps.1.low2.low2.low2.low2.max1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.max1
+kps.1.low2.low2.low2.low2.low1.0.conv1
+[('weight', torch.Size([512, 384, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.conv1
+kps.1.low2.low2.low2.low2.low1.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.bn1
+kps.1.low2.low2.low2.low2.low1.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.relu1
+kps.1.low2.low2.low2.low2.low1.0.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.conv2
+kps.1.low2.low2.low2.low2.low1.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.bn2
+kps.1.low2.low2.low2.low2.low1.0.skip.0
+[('weight', torch.Size([512, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.skip.0
+kps.1.low2.low2.low2.low2.low1.0.skip.1
+[('weight', torch.Size([512])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.skip.1
+kps.1.low2.low2.low2.low2.low1.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.0.relu
+kps.1.low2.low2.low2.low2.low1.1.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.conv1
+kps.1.low2.low2.low2.low2.low1.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.bn1
+kps.1.low2.low2.low2.low2.low1.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.relu1
+kps.1.low2.low2.low2.low2.low1.1.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.conv2
+kps.1.low2.low2.low2.low2.low1.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.bn2
+kps.1.low2.low2.low2.low2.low1.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.skip
+kps.1.low2.low2.low2.low2.low1.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low1.1.relu
+kps.1.low2.low2.low2.low2.low2.0.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.conv1
+kps.1.low2.low2.low2.low2.low2.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.bn1
+kps.1.low2.low2.low2.low2.low2.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.relu1
+kps.1.low2.low2.low2.low2.low2.0.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.conv2
+kps.1.low2.low2.low2.low2.low2.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.bn2
+kps.1.low2.low2.low2.low2.low2.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.skip
+kps.1.low2.low2.low2.low2.low2.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.0.relu
+kps.1.low2.low2.low2.low2.low2.1.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.conv1
+kps.1.low2.low2.low2.low2.low2.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.bn1
+kps.1.low2.low2.low2.low2.low2.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.relu1
+kps.1.low2.low2.low2.low2.low2.1.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.conv2
+kps.1.low2.low2.low2.low2.low2.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.bn2
+kps.1.low2.low2.low2.low2.low2.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.skip
+kps.1.low2.low2.low2.low2.low2.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.1.relu
+kps.1.low2.low2.low2.low2.low2.2.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.conv1
+kps.1.low2.low2.low2.low2.low2.2.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.bn1
+kps.1.low2.low2.low2.low2.low2.2.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.relu1
+kps.1.low2.low2.low2.low2.low2.2.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.conv2
+kps.1.low2.low2.low2.low2.low2.2.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.bn2
+kps.1.low2.low2.low2.low2.low2.2.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.skip
+kps.1.low2.low2.low2.low2.low2.2.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.2.relu
+kps.1.low2.low2.low2.low2.low2.3.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.conv1
+kps.1.low2.low2.low2.low2.low2.3.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.bn1
+kps.1.low2.low2.low2.low2.low2.3.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.relu1
+kps.1.low2.low2.low2.low2.low2.3.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.conv2
+kps.1.low2.low2.low2.low2.low2.3.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.bn2
+kps.1.low2.low2.low2.low2.low2.3.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.skip
+kps.1.low2.low2.low2.low2.low2.3.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low2.3.relu
+kps.1.low2.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.conv1
+kps.1.low2.low2.low2.low2.low3.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.bn1
+kps.1.low2.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.relu1
+kps.1.low2.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([512, 512, 3, 3])), ('bias', torch.Size([512]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.conv2
+kps.1.low2.low2.low2.low2.low3.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.bn2
+kps.1.low2.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.skip
+kps.1.low2.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.0.relu
+kps.1.low2.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 512, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.conv1
+kps.1.low2.low2.low2.low2.low3.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.bn1
+kps.1.low2.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.relu1
+kps.1.low2.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.conv2
+kps.1.low2.low2.low2.low2.low3.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.bn2
+kps.1.low2.low2.low2.low2.low3.1.skip.0
+[('weight', torch.Size([384, 512, 1, 1]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.skip.0
+kps.1.low2.low2.low2.low2.low3.1.skip.1
+[('weight', torch.Size([384])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.skip.1
+kps.1.low2.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.low3.1.relu
+kps.1.low2.low2.low2.low2.up2
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.up2
+kps.1.low2.low2.low2.low2.merge
+[]
+==========================================
+** kps.1.low2.low2.low2.low2.merge
+kps.1.low2.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.0.conv1
+kps.1.low2.low2.low2.low3.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.bn1
+kps.1.low2.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.relu1
+kps.1.low2.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.0.conv2
+kps.1.low2.low2.low2.low3.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.bn2
+kps.1.low2.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.skip
+kps.1.low2.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.0.relu
+kps.1.low2.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.1.conv1
+kps.1.low2.low2.low2.low3.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.bn1
+kps.1.low2.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.relu1
+kps.1.low2.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low2.low3.1.conv2
+kps.1.low2.low2.low2.low3.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.bn2
+kps.1.low2.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.skip
+kps.1.low2.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low2.low3.1.relu
+kps.1.low2.low2.low2.up2
+[]
+==========================================
+** kps.1.low2.low2.low2.up2
+kps.1.low2.low2.low2.merge
+[]
+==========================================
+** kps.1.low2.low2.low2.merge
+kps.1.low2.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.0.conv1
+kps.1.low2.low2.low3.0.bn1
+[]
+==========================================
+** kps.1.low2.low2.low3.0.bn1
+kps.1.low2.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low2.low3.0.relu1
+kps.1.low2.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.0.conv2
+kps.1.low2.low2.low3.0.bn2
+[]
+==========================================
+** kps.1.low2.low2.low3.0.bn2
+kps.1.low2.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low2.low3.0.skip
+kps.1.low2.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low2.low3.0.relu
+kps.1.low2.low2.low3.1.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.1.conv1
+kps.1.low2.low2.low3.1.bn1
+[]
+==========================================
+** kps.1.low2.low2.low3.1.bn1
+kps.1.low2.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low2.low3.1.relu1
+kps.1.low2.low2.low3.1.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low2.low3.1.conv2
+kps.1.low2.low2.low3.1.bn2
+[]
+==========================================
+** kps.1.low2.low2.low3.1.bn2
+kps.1.low2.low2.low3.1.skip
+[]
+==========================================
+** kps.1.low2.low2.low3.1.skip
+kps.1.low2.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low2.low3.1.relu
+kps.1.low2.low2.up2
+[]
+==========================================
+** kps.1.low2.low2.up2
+kps.1.low2.low2.merge
+[]
+==========================================
+** kps.1.low2.low2.merge
+kps.1.low2.low3.0.conv1
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low3.0.conv1
+kps.1.low2.low3.0.bn1
+[]
+==========================================
+** kps.1.low2.low3.0.bn1
+kps.1.low2.low3.0.relu1
+[]
+==========================================
+** kps.1.low2.low3.0.relu1
+kps.1.low2.low3.0.conv2
+[('weight', torch.Size([384, 384, 3, 3])), ('bias', torch.Size([384]))]
+==========================================
+** kps.1.low2.low3.0.conv2
+kps.1.low2.low3.0.bn2
+[]
+==========================================
+** kps.1.low2.low3.0.bn2
+kps.1.low2.low3.0.skip
+[]
+==========================================
+** kps.1.low2.low3.0.skip
+kps.1.low2.low3.0.relu
+[]
+==========================================
+** kps.1.low2.low3.0.relu
+kps.1.low2.low3.1.conv1
+[('weight', torch.Size([256, 384, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.low3.1.conv1
+kps.1.low2.low3.1.bn1
+[]
+==========================================
+** kps.1.low2.low3.1.bn1
+kps.1.low2.low3.1.relu1
+[]
+==========================================
+** kps.1.low2.low3.1.relu1
+kps.1.low2.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.low3.1.conv2
+kps.1.low2.low3.1.bn2
+[]
+==========================================
+** kps.1.low2.low3.1.bn2
+kps.1.low2.low3.1.skip.0
+[('weight', torch.Size([256, 384, 1, 1]))]
+==========================================
+** kps.1.low2.low3.1.skip.0
+kps.1.low2.low3.1.skip.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low2.low3.1.skip.1
+kps.1.low2.low3.1.relu
+[]
+==========================================
+** kps.1.low2.low3.1.relu
+kps.1.low2.up2
+[]
+==========================================
+** kps.1.low2.up2
+kps.1.low2.merge
+[]
+==========================================
+** kps.1.low2.merge
+kps.1.low3.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.0.conv1
+kps.1.low3.0.bn1
+[]
+==========================================
+** kps.1.low3.0.bn1
+kps.1.low3.0.relu1
+[]
+==========================================
+** kps.1.low3.0.relu1
+kps.1.low3.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.0.conv2
+kps.1.low3.0.bn2
+[]
+==========================================
+** kps.1.low3.0.bn2
+kps.1.low3.0.skip
+[]
+==========================================
+** kps.1.low3.0.skip
+kps.1.low3.0.relu
+[]
+==========================================
+** kps.1.low3.0.relu
+kps.1.low3.1.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.1.conv1
+kps.1.low3.1.bn1
+[]
+==========================================
+** kps.1.low3.1.bn1
+kps.1.low3.1.relu1
+[]
+==========================================
+** kps.1.low3.1.relu1
+kps.1.low3.1.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** kps.1.low3.1.conv2
+kps.1.low3.1.bn2
+[]
+==========================================
+** kps.1.low3.1.bn2
+kps.1.low3.1.skip
+[]
+==========================================
+** kps.1.low3.1.skip
+kps.1.low3.1.relu
+[]
+==========================================
+** kps.1.low3.1.relu
+kps.1.up2
+[]
+==========================================
+** kps.1.up2
+kps.1.merge
+[]
+==========================================
+** kps.1.merge
+cnvs.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** cnvs.0.conv
+cnvs.0.bn
+[]
+==========================================
+Identity()
+cnvs.0.relu
+[]
+==========================================
+** cnvs.0.relu
+cnvs.1.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** cnvs.1.conv
+cnvs.1.bn
+[]
+==========================================
+Identity()
+cnvs.1.relu
+[]
+==========================================
+** cnvs.1.relu
+inters.0.conv1
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** inters.0.conv1
+inters.0.bn1
+[]
+==========================================
+** inters.0.bn1
+inters.0.relu1
+[]
+==========================================
+** inters.0.relu1
+inters.0.conv2
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** inters.0.conv2
+inters.0.bn2
+[]
+==========================================
+** inters.0.bn2
+inters.0.skip
+[]
+==========================================
+** inters.0.skip
+inters.0.relu
+[]
+==========================================
+** inters.0.relu
+inters_.0.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** inters_.0.0
+inters_.0.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** inters_.0.1
+cnvs_.0.0
+[('weight', torch.Size([256, 256, 1, 1]))]
+==========================================
+** cnvs_.0.0
+cnvs_.0.1
+[('weight', torch.Size([256])), ('bias', torch.Size([256]))]
+==========================================
+** cnvs_.0.1
+hm.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm.0.0.conv
+hm.0.0.bn
+[]
+==========================================
+** hm.0.0.bn
+hm.0.0.relu
+[]
+==========================================
+** hm.0.0.relu
+hm.0.1
+[('weight', torch.Size([1, 256, 1, 1])), ('bias', torch.Size([1]))]
+==========================================
+** hm.0.1
+hm.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm.1.0.conv
+hm.1.0.bn
+[]
+==========================================
+** hm.1.0.bn
+hm.1.0.relu
+[]
+==========================================
+** hm.1.0.relu
+hm.1.1
+[('weight', torch.Size([1, 256, 1, 1])), ('bias', torch.Size([1]))]
+==========================================
+** hm.1.1
+wh.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** wh.0.0.conv
+wh.0.0.bn
+[]
+==========================================
+** wh.0.0.bn
+wh.0.0.relu
+[]
+==========================================
+** wh.0.0.relu
+wh.0.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** wh.0.1
+wh.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** wh.1.0.conv
+wh.1.0.bn
+[]
+==========================================
+** wh.1.0.bn
+wh.1.0.relu
+[]
+==========================================
+** wh.1.0.relu
+wh.1.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** wh.1.1
+hps.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hps.0.0.conv
+hps.0.0.bn
+[]
+==========================================
+** hps.0.0.bn
+hps.0.0.relu
+[]
+==========================================
+** hps.0.0.relu
+hps.0.1
+[('weight', torch.Size([34, 256, 1, 1])), ('bias', torch.Size([34]))]
+==========================================
+** hps.0.1
+hps.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hps.1.0.conv
+hps.1.0.bn
+[]
+==========================================
+** hps.1.0.bn
+hps.1.0.relu
+[]
+==========================================
+** hps.1.0.relu
+hps.1.1
+[('weight', torch.Size([34, 256, 1, 1])), ('bias', torch.Size([34]))]
+==========================================
+** hps.1.1
+reg.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** reg.0.0.conv
+reg.0.0.bn
+[]
+==========================================
+** reg.0.0.bn
+reg.0.0.relu
+[]
+==========================================
+** reg.0.0.relu
+reg.0.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** reg.0.1
+reg.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** reg.1.0.conv
+reg.1.0.bn
+[]
+==========================================
+** reg.1.0.bn
+reg.1.0.relu
+[]
+==========================================
+** reg.1.0.relu
+reg.1.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** reg.1.1
+hm_hp.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm_hp.0.0.conv
+hm_hp.0.0.bn
+[]
+==========================================
+** hm_hp.0.0.bn
+hm_hp.0.0.relu
+[]
+==========================================
+** hm_hp.0.0.relu
+hm_hp.0.1
+[('weight', torch.Size([17, 256, 1, 1])), ('bias', torch.Size([17]))]
+==========================================
+** hm_hp.0.1
+hm_hp.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hm_hp.1.0.conv
+hm_hp.1.0.bn
+[]
+==========================================
+** hm_hp.1.0.bn
+hm_hp.1.0.relu
+[]
+==========================================
+** hm_hp.1.0.relu
+hm_hp.1.1
+[('weight', torch.Size([17, 256, 1, 1])), ('bias', torch.Size([17]))]
+==========================================
+** hm_hp.1.1
+hp_offset.0.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hp_offset.0.0.conv
+hp_offset.0.0.bn
+[]
+==========================================
+** hp_offset.0.0.bn
+hp_offset.0.0.relu
+[]
+==========================================
+** hp_offset.0.0.relu
+hp_offset.0.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** hp_offset.0.1
+hp_offset.1.0.conv
+[('weight', torch.Size([256, 256, 3, 3])), ('bias', torch.Size([256]))]
+==========================================
+** hp_offset.1.0.conv
+hp_offset.1.0.bn
+[]
+==========================================
+** hp_offset.1.0.bn
+hp_offset.1.0.relu
+[]
+==========================================
+** hp_offset.1.0.relu
+hp_offset.1.1
+[('weight', torch.Size([2, 256, 1, 1])), ('bias', torch.Size([2]))]
+==========================================
+** hp_offset.1.1
+relu
+[]
+==========================================
+** relu
+Loading and preparing results...
+DONE (t=9.18s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=20.12s).
+Accumulating evaluation results...
+DONE (t=0.76s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.616
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.843
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.675
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.562
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.712
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.743
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.612
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.790
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=42.56s).
+Accumulating evaluation results...
+DONE (t=5.81s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.383
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.614
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.400
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.077
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.497
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.717
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.168
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.413
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.449
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.122
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.568
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.802
